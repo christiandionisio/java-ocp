@@ -28,7 +28,7 @@ public class SwitchStatement {
         // int, Integer, byte, Byte, short, Short,
         // char, Character, String, enum values,
         // var (only valid for preceding types)
-
+        System.out.print(1%2);
     }
 
 
