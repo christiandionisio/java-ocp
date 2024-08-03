@@ -17,7 +17,7 @@ public class SwitchExpression {
         // result of switch to a variable
         System.out.print(result);
 
-        // Notice that yield is equivalent to retur statement
+        // Notice that yield is equivalent to return statement
         int fish = 5;
         int length = 12;
         var name = switch(fish) {
