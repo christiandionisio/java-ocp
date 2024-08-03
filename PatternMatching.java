@@ -9,6 +9,11 @@ public class PatternMatching {
     public static void main(String ...args) {
         printOnlyIntegers(200);
 
+        Integer value = 123;
+        if(value instanceof Integer) {}
+        // para data el valor value debe ser un subtipo de integer por eso no compila
+        // if(value instanceof Integer data) {}  // DOES NOT COMPILE
+
     }
     
 }
