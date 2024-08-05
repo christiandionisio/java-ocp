@@ -100,6 +100,31 @@ public class StringHandling {
         System.out.format("[%012f]",pi);   // [00003.141593]
         System.out.format("[%12.2f]",pi);  // [        3.14]
         System.out.format("[%.3f]",pi);    // [3.142]
+
+
+        // String pool
+        System.out.println("");
+        System.out.println("String pool");
+        var x = "Hello World";
+        var y = new String("Hello World");
+        System.out.println(x == y); // false
+
+        var name4 = "Hello World";
+        var name3 = new String("Hello World").intern();
+        // with intern() you indicate to use the value of 
+        // String from String pool, so both variable points
+        // to the same object
+        System.out.println(name4 == name3); // true
+
+        var first = "rat" + 1; // compile time constant gets placed in the string pool
+        var second = "r" + "a" + "t" + "1"; // compile time constant gets placed in the string pool
+        var third = "r" + "a" + "t" + new String("1"); // no compile time constant
+        System.out.println(first == second);    // true
+        System.out.println(first == second.intern()); // true
+        System.out.println(first == third); // false
+        System.out.println(first == third.intern()); // true
+
+
     }
 
 
