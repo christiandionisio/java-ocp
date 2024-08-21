@@ -1,6 +1,9 @@
 import java.util.List;
 import java.util.ArrayList;
 
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 public class GenericTypesBounding {
 
     public static void main(String ...args) {
@@ -40,6 +43,26 @@ public class GenericTypesBounding {
             printList(objects);
         }
 
+        {
+            List<? super IOException> exceptions = new ArrayList<Exception>();
+            // exceptions.add(new Exception()); // Does not compile
+            exceptions.add(new IOException());
+            exceptions.add(new FileNotFoundException());
+
+            List<? super Mammal> animal = new ArrayList<Animal>();
+            // animal.add(new Animal());    // Does not comp
+            animal.add(new Mammal());
+            animal.add(new Monkey());
+        }
+
+        {
+            List<String> strings = new ArrayList<>();
+            strings.add("first");
+            strings.add("second");
+            String getFirst = first(strings);
+            System.out.println(getFirst);
+        }
+
     }
 
     // Unbounded wildcard
@@ -62,6 +85,15 @@ public class GenericTypesBounding {
         // upper bounded generics because they are inmutable
         list.add("quack");
     }
+
+    static public class Animal {}
+    public static class Mammal extends Animal {}
+    public static class Monkey extends Mammal {}
+
+    static <T> T first(List<? extends T> list) {
+        return list.get(0);
+    }
+
 
 
 }
