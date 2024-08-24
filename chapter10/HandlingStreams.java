@@ -1,8 +1,12 @@
 import java.util.stream.Stream;
+import java.util.stream.Collectors;
 import java.util.Spliterator;
 import java.util.Optional;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.function.BinaryOperator;
 
@@ -122,6 +126,102 @@ public class HandlingStreams {
             
             originalBagOfFood.forEachRemaining(System.out::print); // lamb-mouse-
             System.out.println();
+        }
+
+        // Collectors
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears");
+            TreeSet<String> result = ohMy
+                .filter(s -> s.startsWith("t"))
+                .collect(Collectors.toCollection(TreeSet::new));
+            System.out.println(result); // [tigers]
+        }
+
+        // Colletiong into maps
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears");
+            Map<String, Integer> map = ohMy.collect(
+                // Collectors.toMap(s -> s, String::length));
+                Collectors.toMap(String::toString, String::length));
+            System.out.println(map); // {lions=5, bears=5, tigers=6}
+        }
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears", "perro");
+            Map<Integer, String> map = ohMy.collect(Collectors.toMap(
+                String::length,
+                k -> k,
+                (s1, s2) -> s1 + "," + s2)); // merge applies only for duplicated keys
+            System.out.println(map);            // {5=lions,bears, 6=tigers}
+            System.out.println(map.getClass()); // class java.util.HashMap
+        }
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears");
+            Map<Integer, String> map = ohMy.collect(Collectors.toMap(
+                String::length,
+                k -> k,
+                (s1, s2) -> s1 + "," + s2,
+                TreeMap::new)); // you can define the ouput class
+            System.out.println(map); // {5=lions,bears, 6=tigers}
+            System.out.println(map.getClass()); // class java.util.TreeMap
+        }
+
+        // groupongBy()
+        {
+           var ohMy = Stream.of("lions", "tigers", "bears");
+            Map<Integer, List<String>> map = ohMy.collect(
+                Collectors.groupingBy(String::length));
+            System.out.println(map);    // {5=[lions, bears], 6=[tigers]} 
+        }
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears");
+            Map<Integer, Set<String>> map = ohMy.collect(
+                Collectors.groupingBy(
+                    String::length,
+                    Collectors.toSet()));   // you can define the value output class
+            System.out.println(map);    // {5=[lions, bears], 6=[tigers]}
+        }
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears");
+            TreeMap<Integer, Set<String>> map = ohMy.collect(
+                Collectors.groupingBy(
+                    String::length,
+                    TreeMap::new,   // we can change even the type of Map returned
+                    Collectors.toSet()));
+            System.out.println(map); // {5=[lions, bears], 6=[tigers]}
+        }
+
+        // partitioningBy()
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears");
+            Map<Boolean, List<String>> map = ohMy.collect(
+                Collectors.partitioningBy(s -> s.length() <= 5));
+            System.out.println(map);    // {false=[tigers], true=[lions, bears]}
+        }
+
+        // mapping()
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears");
+            Map<Integer, Optional<Character>> map = ohMy.collect(
+                Collectors.groupingBy(
+                    String::length,
+                    Collectors.mapping(
+                        s -> s.charAt(0),
+                        Collectors.minBy((a, b) -> a - b))));
+            System.out.println(map);    // {5=Optional[b], 6=Optional[t]}
+        }
+
+
+        // Teeing collectors
+        {
+            record Separations(String spaceSeparated, String commaSeparated) {}
+
+            var list = List.of("x", "y", "z");
+            Separations result = list.stream()
+                .collect(Collectors.teeing(
+                            Collectors.joining(" "),
+                            Collectors.joining(","),
+                            (s, c) -> new Separations(s, c)));
+            System.out.println(result);
         }
 
 
