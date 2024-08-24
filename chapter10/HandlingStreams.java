@@ -17,7 +17,7 @@ public class HandlingStreams {
         // it will generate a stream with infinite values
         Stream<Double> randoms = Stream.generate(Math::random);
         Stream<Integer> oddNumbers = Stream.iterate(1, n -> n +  2);
-        // it will generate a finite stream 'cause the second parameter as a condition'
+        // it will generate a finite stream 'cause the second parameter is a condition'
         Stream<Integer> oddNumbersUnder100 = Stream.iterate(1, n -> n < 100, n -> n +  2);
 
         // randoms.forEach(value -> System.out.println(value));
@@ -112,6 +112,7 @@ public class HandlingStreams {
             System.out.println();
         }
 
+        // Spliteator
         {
             var stream = List.of("bird-", "bunny-", "cat-", "dog-", "fish-", "lamb-", "mouse-");
             Spliterator<String> originalBagOfFood = stream.spliterator();
@@ -165,7 +166,7 @@ public class HandlingStreams {
             System.out.println(map.getClass()); // class java.util.TreeMap
         }
 
-        // groupongBy()
+        // groupingBy()
         {
            var ohMy = Stream.of("lions", "tigers", "bears");
             Map<Integer, List<String>> map = ohMy.collect(
