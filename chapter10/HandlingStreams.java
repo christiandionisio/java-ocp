@@ -1,4 +1,5 @@
 import java.util.stream.Stream;
+import java.util.Spliterator;
 import java.util.Optional;
 import java.util.List;
 import java.util.TreeSet;
@@ -104,6 +105,23 @@ public class HandlingStreams {
             s.skip(5)
                 .limit(2)
                 .forEach(System.out::print); // 67
+            System.out.println();
+        }
+
+        {
+            var stream = List.of("bird-", "bunny-", "cat-", "dog-", "fish-", "lamb-", "mouse-");
+            Spliterator<String> originalBagOfFood = stream.spliterator();
+            Spliterator<String> emmasBag = originalBagOfFood.trySplit();
+            emmasBag.forEachRemaining(System.out::print);  // bird-bunny-cat-
+            System.out.println();
+            
+            Spliterator<String> jillsBag = originalBagOfFood.trySplit();
+            jillsBag.tryAdvance(System.out::print);        // dog-
+            jillsBag.forEachRemaining(System.out::print);  // fish-
+            System.out.println();
+            
+            originalBagOfFood.forEachRemaining(System.out::print); // lamb-mouse-
+            System.out.println();
         }
 
 
