@@ -226,6 +226,23 @@ public class HandlingStreams {
         }
 
 
+        // Excercises
+        {
+            System.out.println(Stream.iterate(1, x -> ++x)
+                .limit(5).map(x -> "" + x)
+                .collect(Collectors.joining()));
+        }
+
+        {
+            var spliterator = Stream.generate(() -> "x")
+                .spliterator();
+            
+            spliterator.tryAdvance(System.out::print);  
+            var split = spliterator.trySplit();
+            split.tryAdvance(System.out::print);
+        }
+
+
 
     }
 
