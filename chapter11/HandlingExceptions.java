@@ -24,12 +24,11 @@ public class HandlingExceptions {
             try (bookReader;
                 var tvReader = new MyFileClass(6);
                 movieReader) {
-            System.out.println("Try Block");
+                System.out.println("Try Block");
             } finally {
-            System.out.println("Finally Block");
+                System.out.println("Finally Block");
             }
         }
-        
 
     }
 
