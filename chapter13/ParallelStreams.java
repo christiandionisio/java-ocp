@@ -45,6 +45,20 @@ public class ParallelStreams {
                 Set::add,
                 Set::addAll);
             System.out.println(set);  // [f, l, o, W]
+
+            Stream<String> ohMy = Stream.of("lions", "tigers", "bears").parallel();
+            ConcurrentMap<Integer, String> map = ohMy
+                .collect(Collectors.toConcurrentMap(String::length,
+                    k -> k,
+                    (s1, s2) -> s1 + "," + s2));
+            System.out.println(map);             // {5=lions,bears, 6=tigers}
+            System.out.println(map.getClass());  // java.util.concurrent.ConcurrentHashMap
+        }
+        {
+            var ohMy = Stream.of("lions", "tigers", "bears").parallel();
+            ConcurrentMap<Integer, List<String>> map = ohMy.collect(
+                Collectors.groupingByConcurrent(String::length));
+            System.out.println(map);             // {5=[lions, bears], 6=[tigers]}
         }
 
 
