@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.FileSystems;
 import java.util.stream.*;
+import java.util.*;
 
 public class HandlingFiles {
     public static void main(String ...args) throws Exception {
@@ -127,8 +128,86 @@ public class HandlingFiles {
 
 
         // Real file system path
+        // {
+        //    System.out.println(Paths.get(".").toRealPath());
+        // }
+
+
+        // Create directory
+        // {
+        //     Files.createDirectory(Path.of("./bison/field")); // Exception when the predirectory is nort created
+        //     // Files.createDirectories(Path.of("./bison/field/pasture/green"));
+        // }
+
+        // Reading files
+        // {
+        //     Files.readAllLines(Paths.get("./stripes.txt")).forEach(System.out::println);
+        //     Files.lines(Paths.get("./stripes.txt")).forEach(System.out::println);
+        // }
+
+
+        // Copy data
+        // {
+        //     copyPath(Paths.get("./stripes.txt"), Paths.get("./copy.txt"));
+        // }
+
+
+        // {
+        //     try (var in = new FileInputStream("zoo.txt")) {
+        //         System.out.println("Found file!");
+        //     } catch (FileNotFoundException e) {
+        //         System.err.println("File not found!");
+        //     }
+        // }
+        // {
+        //     var reader = new BufferedReader(new InputStreamReader(System.in));
+        //     String userInput = reader.readLine();
+        //     System.out.println("You entered: " + userInput);
+        // }
+        // {
+        //     try (var out = System.out) {}
+        //     System.out.println("Hello"); // Prints nothing
+        // }
+        // {
+        //     try (var err = System.err) {}
+        //     System.err.println("Hello"); // Prints nothing
+        // }
+        // {
+        //     var reader = new BufferedReader(new InputStreamReader(System.in));
+        //     try (reader) {}
+        //     String data = reader.readLine(); // IOException
+        // }
+
+
+        // {
+        //     Console console = System.console();
+        //     if (console == null) {
+        //         throw new RuntimeException("Console not available");
+        //     } else {
+        //         console.writer().println("Welcome to Our Zoo!");
+        //         console.format("It has %d animals and employs %d people", 391, 25);
+        //         console.writer().println();
+        //         console.printf("The zoo spans %5.1f acres", 128.91);
+        //     }
+        // }
         {
-           System.out.println(Paths.get(".").toRealPath());
+            Console console = System.console();
+            if (console == null) {
+                throw new RuntimeException("Console not available");
+            } else {
+                String name = console.readLine("Please enter your name: ");
+                console.writer().format("Hi %s", name);
+                console.writer().println();
+                
+                console.format("What is your address? ");
+                String address = console.readLine();
+                
+                char[] password = console.readPassword("Enter a password "
+                    + "between %d and %d characters: ", 5, 10);
+                char[] verify = console.readPassword("Enter the password again: ");
+                console.printf("Passwords "
+                    + (Arrays.equals(password, verify) ? "match" : "do not match"));
+            }
         }
 
     }
@@ -175,5 +254,17 @@ public class HandlingFiles {
         while((currentParent = currentParent.getParent()) != null)
             System.out.println("   Current parent is: " + currentParent);
         System.out.println();
+    }
+
+    private static void copyPath(Path input, Path output) throws IOException {
+        try (var reader = Files.newBufferedReader(input);
+            var writer = Files.newBufferedWriter(output)) {
+        
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } 
     }
 }
