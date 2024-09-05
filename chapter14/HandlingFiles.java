@@ -3,6 +3,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.FileSystems;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.FileTime;
 import java.util.stream.*;
 import java.util.*;
 
@@ -190,23 +193,72 @@ public class HandlingFiles {
         //         console.printf("The zoo spans %5.1f acres", 128.91);
         //     }
         // }
+        // {
+        //     Console console = System.console();
+        //     if (console == null) {
+        //         throw new RuntimeException("Console not available");
+        //     } else {
+        //         String name = console.readLine("Please enter your name: ");
+        //         console.writer().format("Hi %s", name);
+        //         console.writer().println();
+                
+        //         console.format("What is your address? ");
+        //         String address = console.readLine();
+                
+        //         char[] password = console.readPassword("Enter a password "
+        //             + "between %d and %d characters: ", 5, 10);
+        //         char[] verify = console.readPassword("Enter the password again: ");
+        //         console.printf("Passwords "
+        //             + (Arrays.equals(password, verify) ? "match" : "do not match"));
+        //     }
+        // }
+
+
+        // Retrieving attributes
+        // {
+        //     var path = Paths.get("./stripes.txt");
+        //     BasicFileAttributes data = Files.readAttributes(path,
+        //         BasicFileAttributes.class);
+            
+        //     System.out.println("Is a directory? " + data.isDirectory());
+        //     System.out.println("Is a regular file? " + data.isRegularFile());
+        //     System.out.println("Is a symbolic link? " + data.isSymbolicLink());
+        //     System.out.println("Size (in bytes): " + data.size());
+        //     System.out.println("Last modified: " + data.lastModifiedTime());
+        // }
+
+        // Modifying Attributes
+        // {
+        //     // Read file attributes
+        //     var path = Paths.get("./stripes.txt");
+        //     BasicFileAttributeView view = Files.getFileAttributeView(path,
+        //         BasicFileAttributeView.class);
+        //     BasicFileAttributes attributes = view.readAttributes();
+            
+        //     // Modify file last modified time
+        //     FileTime lastModifiedTime = FileTime.fromMillis(
+        //         attributes.lastModifiedTime().toMillis() + 10_000);
+        //     view.setTimes(lastModifiedTime, null, null);
+        // }
+
+
+        // Walking a Directory
+        // {
+        //     var size = getPathSize(Path.of("/Users/christiandionisio/Desktop/javaOCP"));
+        //     System.out.format("Total Size: %.2f megabytes", (size/1000000.0));
+        // }
+
+
+
+        // Searching a directory
         {
-            Console console = System.console();
-            if (console == null) {
-                throw new RuntimeException("Console not available");
-            } else {
-                String name = console.readLine("Please enter your name: ");
-                console.writer().format("Hi %s", name);
-                console.writer().println();
-                
-                console.format("What is your address? ");
-                String address = console.readLine();
-                
-                char[] password = console.readPassword("Enter a password "
-                    + "between %d and %d characters: ", 5, 10);
-                char[] verify = console.readPassword("Enter the password again: ");
-                console.printf("Passwords "
-                    + (Arrays.equals(password, verify) ? "match" : "do not match"));
+            Path path = Paths.get("/Users/christiandionisio/Desktop/javaOCP");
+            long minSize = 1_000;
+            try (var s = Files.find(path, 10,
+                (p, a) -> a.isRegularFile()
+                    && p.toString().endsWith(".java")
+                    && a.size() > minSize)) {
+            s.forEach(System.out::println);
             }
         }
 
@@ -267,4 +319,21 @@ public class HandlingFiles {
             }
         } 
     }
+
+    // private long getSize(Path p) {
+    //     try {
+    //         return  Files.size(p);
+    //     } catch (IOException e) {
+    //         throw new UncheckedIOException(e);
+    //     }
+    // }
+    
+    // public long getPathSize(Path source) throws IOException {
+    //     try (var s = Files.walk(source)) {
+    //         return s.parallel()
+    //                 .filter(p -> !Files.isDirectory(p))
+    //                 .mapToLong(this::getSize)
+    //                 .sum();
+    //     }
+    // }
 }
