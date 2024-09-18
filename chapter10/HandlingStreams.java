@@ -36,6 +36,11 @@ public class HandlingStreams {
             Optional<String> min = s.min((s1, s2) -> s1.length()-s2.length());
             min.ifPresent(System.out::println); // ape
         }
+         {
+            Stream<String> s = Stream.of("monkey", "ape", "bonobo");
+            Optional<String> max = s.max((s1, s2) -> s1.length()-s2.length());
+            max.ifPresent(System.out::println); // ape
+        }
 
         // findAny and findFirst methods are not reductions because they don't process all the elements of a streams
         {

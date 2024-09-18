@@ -56,10 +56,10 @@ public class StringHandling {
         System.out.println("Working with indentation");
         System.out.println(block.length());                 // 6
         System.out.println(concat.length());                // 9
-        System.out.println(block.indent(1).length());       // 10
-        System.out.println(concat.indent(-1).length());     // 7
-        System.out.println(concat.indent(-4).length());     // 6
-        System.out.println(concat.stripIndent().length());  // 6
+        System.out.println(block.indent(1).length());       // 10 adds one because normalization
+        System.out.println(concat.indent(-1).length());     // 7 adds one because normalization
+        System.out.println(concat.indent(-4).length());     // 6 adds one because normalization
+        System.out.println(concat.stripIndent().length());  // 6 adds one because normalization
 
         
         // Translate escapes

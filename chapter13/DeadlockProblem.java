@@ -28,7 +28,9 @@ public record Fox(String name) {
          move();
          synchronized(water) {
             System.out.println(name() + " Got Water!");
-         } } }
+         } 
+      } 
+   }
    public void drinkAndEat(Food food, Water water) {
       synchronized(water) {
          System.out.println(name() + " Got Water!");

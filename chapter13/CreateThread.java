@@ -16,8 +16,8 @@ public class CreateThread {
     public static void main(String ...args) throws Exception {
         Runnable printInventory = () -> System.out.println("Printing zoo inventory");
         Runnable printRecords = () -> {
-        for (int i = 0; i < 3; i++)
-            System.out.println("Printing record: " + i);
+            for (int i = 0; i < 3; i++)
+                System.out.println("Printing record: " + i);
         };
 
         // {
@@ -26,6 +26,13 @@ public class CreateThread {
         //     new Thread(printRecords).start();
         //     new Thread(printInventory).start();
         //     System.out.println("end");
+
+        //     // // run() methods executes sequencially, it doesn't create a threaad
+        //     // System.out.println("begin");
+        //     // new Thread(printInventory).run();
+        //     // new Thread(printRecords).run();
+        //     // new Thread(printInventory).run();
+        //     // System.out.println("end");
         // }
 
         // {
@@ -48,9 +55,10 @@ public class CreateThread {
         //     ExecutorService service = Executors.newSingleThreadExecutor();
         //     try {
         //         Future<?> result = service.submit(() -> {
+        //             // try {Thread.sleep(15000);} catch(InterruptedException e) {}
         //             for(int i = 0; i < 1_000_000; i++) counter++;
         //         });
-        //         result.get(10, TimeUnit.SECONDS); // Returns null for Runnable
+        //         System.out.println(result.get(10, TimeUnit.SECONDS)); // Returns null for Runnable
         //         System.out.println("Reached!");
         //     } catch (TimeoutException e) {
         //         System.out.println("Not reached in time");
@@ -60,7 +68,7 @@ public class CreateThread {
         // }
 
 
-        // Using callable
+        // // Using callable
         // {
         //     var service = Executors.newSingleThreadExecutor();
         //     try {
@@ -72,17 +80,22 @@ public class CreateThread {
         // }
 
 
-        // ScheduleExecutors
+        // // ScheduleExecutors
         // {
         //     ScheduledExecutorService service
         //         = Executors.newSingleThreadScheduledExecutor();
         //     Runnable task1 = () -> System.out.println("Hello Zoo");
         //     Callable<String> task2 = () -> "Monkey";
-        //     ScheduledFuture<?> r1 = service.schedule(task1, 10, TimeUnit.SECONDS);
-        //     ScheduledFuture<?> r2 = service.schedule(task2, 30, TimeUnit.SECONDS);
+        //     try {
+        //         ScheduledFuture<?> r1 = service.schedule(task1, 10, TimeUnit.SECONDS);
+        //         ScheduledFuture<?> r2 = service.schedule(task2, 15, TimeUnit.SECONDS);
+        //         System.out.println(r2.get());
 
-        //     // service.scheduleAtFixedRate(task1, 5, 10, TimeUnit.SECONDS); // no waits to finish
-        //     // service.scheduleWithFixedDelay(task1, 0, 2, TimeUnit.SECONDS);  // waits to finish tasks
+        //     } finally {
+        //         service.shutdown();
+        //     }
+        //         // service.scheduleAtFixedRate(task1, 5, 10, TimeUnit.SECONDS); // no waits to finish task1
+        //         // service.scheduleWithFixedDelay(task1, 2, 5, TimeUnit.SECONDS);  // waits to finish task1
         // }
 
 
@@ -95,6 +108,7 @@ public class CreateThread {
         //         try {
         //             System.out.println("Lock obtained, entering protected code");
         //         } finally {
+        //             System.out.println("protected code unlocking");
         //             lock.unlock();
         //         }
         //     } else {
@@ -110,6 +124,7 @@ public class CreateThread {
                     // lock.lock();
                     System.out.println("Lock obtained, entering protected code");
                 } finally {
+                    System.out.println("protected code unlocking");
                     lock.unlock();
                     // lock.unlock();
                 }
@@ -127,6 +142,7 @@ public class CreateThread {
             // Thread.sleep(12000);
             
         } finally {
+            System.out.println("Unlocking printHello");
             lock.unlock();
         } 
     }

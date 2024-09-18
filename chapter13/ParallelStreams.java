@@ -6,37 +6,37 @@ public class ParallelStreams {
 
     public static void main(String ...args) {
 
-        // {
-        //     long start = System.currentTimeMillis();
-        //     List.of(1,2,3,4,5)
-        //         // .stream()
-        //         .parallelStream()
-        //         .map(w -> doWork(w))
-        //         // .forEachOrdered(s -> System.out.print(s + " ")); // Orders the output
-        //         .forEachOrdered(s -> System.out.print(s + " "));
+        {
+            long start = System.currentTimeMillis();
+            List.of(1,2,3,4,5)
+                // .stream()
+                .parallelStream()
+                .map(w -> doWork(w))
+                // .forEachOrdered(s -> System.out.print(s + " ")); // Orders the output and executes in parallel
+                .forEachOrdered(s -> System.out.print(s + " "));
             
-        //     System.out.println();
-        //     var timeTaken = (System.currentTimeMillis()-start)/1000;
-        //     System.out.println("Time: "+timeTaken+" seconds");
-        // }
+            System.out.println();
+            var timeTaken = (System.currentTimeMillis()-start)/1000;
+            System.out.println("Time: "+timeTaken+" seconds");
+        }
 
         
         // reducee combiner
-        // {
-        //     System.out.println(List.of('w', 'o', 'l', 'f')
-        //         .parallelStream()
-        //         .reduce("",
-        //             (s1,c) -> s1 + c, //    'w' + 'o' + ...
-        //             (s2,s3) -> s2 + s3)); // "wo" + "lf' combines results with parallel stream
+        {
+            System.out.println(List.of('w', 'o', 'l', 'f')
+                .parallelStream()
+                .reduce("",
+                    (s1,c) -> {s1 + c}, //    'w' + 'o' + ...
+                    (s2,s3) -> s2 + s3)); // "wo" + "lf' combines results with parallel stream
 
-        //     System.out.println(List.of(1,2,3,4,5,6)
-        //         .parallelStream()
-        //         .reduce(0, (a, b) -> (a - b))); // PROBLEMATIC ACCUMULATOR
+            System.out.println(List.of(1,2,3,4,5,6)
+                .parallelStream()
+                .reduce(0, (a, b) -> (a - b))); // PROBLEMATIC ACCUMULATOR
 
-        //     System.out.println(List.of("w","o","l","f")
-        //         .parallelStream()
-        //         .reduce("X", String::concat)); // XwXoXlXf
-        // }
+            System.out.println(List.of("w","o","l","f")
+                .parallelStream()
+                .reduce("X", String::concat)); // XwXoXlXf
+        }
 
 
         {
@@ -59,6 +59,16 @@ public class ParallelStreams {
             ConcurrentMap<Integer, List<String>> map = ohMy.collect(
                 Collectors.groupingByConcurrent(String::length));
             System.out.println(map);             // {5=[lions, bears], 6=[tigers]}
+        }
+
+        {
+            List<Integer> data = new ArrayList<>();
+            IntStream.range(0,100).parallel().forEach(s -> {
+                synchronized(data) {
+                    data.add(s);
+                }
+            }); 
+            System.out.println(data.size());
         }
 
 
