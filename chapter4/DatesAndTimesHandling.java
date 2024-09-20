@@ -36,6 +36,8 @@ public class DatesAndTimesHandling {
         var everyMilli2 = Duration.of(1, ChronoUnit.MILLIS);
         var everyNano2 = Duration.of(1, ChronoUnit.NANOS);
 
+        System.out.println(dateTime.plus(daily)); 
+
 
         // ChronoUnit for differences
         var one = LocalTime.of(5, 15);
@@ -43,6 +45,7 @@ public class DatesAndTimesHandling {
         var date3 = LocalDate.of(2016, 1, 20);
         System.out.println(ChronoUnit.HOURS.between(one, two));     // 1
         System.out.println(ChronoUnit.MINUTES.between(one, two));   // 75
+        System.out.println(ChronoUnit.DAYS.between(LocalDate.now(), LocalDateTime.of(2025,1,29,12,0,0)));
         // System.out.println(ChronoUnit.MINUTES.between(one, date));  // DateTimeException
 
 

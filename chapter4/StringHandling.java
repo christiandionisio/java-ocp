@@ -96,10 +96,10 @@ public class StringHandling {
         */
         var pi = 3.14159265359;
         System.out.format("[%f]",pi);      // [3.141593] by default %f shows 6 digits past the decimal
-        System.out.format("[%12.8f]",pi);  // [  3.14159265]
-        System.out.format("[%012f]",pi);   // [00003.141593]
-        System.out.format("[%12.2f]",pi);  // [        3.14]
-        System.out.format("[%.3f]",pi);    // [3.142]
+        System.out.format("[%12.8f]",pi);  // [  3.14159265] shows 8 digits, past the decimal, 12 digits in total with blanks to the left
+        System.out.format("[%012f]",pi);   // [00003.141593] shows default 6 digits past the decima and 12 digits in total with zeros to the left
+        System.out.format("[%12.2f]",pi);  // [        3.14] shows 2 digits past decimal, 12 digits in total filling with blanks
+        System.out.format("[%.3f]",pi);    // [3.142] shows 3 digits past decimal and the amount of digits necesaru in total
 
 
         // String pool
@@ -123,6 +123,23 @@ public class StringHandling {
         System.out.println(first == second.intern()); // true
         System.out.println(first == third); // false
         System.out.println(first == third.intern()); // true
+
+        {
+            var someString = "Somestring";
+            System.out.println(someString.repeat(2));
+
+            System.out.println(someString.compareTo("Zomestring")); // negative
+            System.out.println(someString.compareTo("Aomestring")); // positive
+            System.out.println(someString.compareTo("Somestring")); // 0
+            System.out.println(someString.compareToIgnoreCase("somestring")); // 0
+
+            // StringBuilder sb = someString.transform((s) -> {
+            //     return new StringBuilder(s + " String builder");
+            // });
+             StringBuilder sb = someString.transform(StringBuilder::new);
+            sb.append(" appened");
+            System.out.println(sb);
+        }
 
 
     }
