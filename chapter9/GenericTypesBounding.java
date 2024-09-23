@@ -45,7 +45,8 @@ public class GenericTypesBounding {
 
         {
             List<? super IOException> exceptions = new ArrayList<Exception>();
-            // exceptions.add(new Exception()); // Does not compile
+            // exceptions.add(new Exception()); // Does not compile because a List <IOException> could have passed and Exception onject wouldnt fit in there
+            // Don't confused the objects inside the array with the declaration
             exceptions.add(new IOException());
             exceptions.add(new FileNotFoundException());
 
@@ -83,6 +84,7 @@ public class GenericTypesBounding {
     public static void addSound(List<? super String> list) {
         // In this case you cannot set unbounded or
         // upper bounded generics because they are inmutable
+        // but for lower bounded generics it compiles
         list.add("quack");
     }
 

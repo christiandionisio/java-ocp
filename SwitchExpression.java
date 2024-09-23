@@ -33,7 +33,24 @@ public class SwitchExpression {
             default -> "Swordfish";
         };
         System.out.println();
-        System.out.print(name);
+        System.out.println(name);
+
+
+        {
+            char number = 1;
+            switch(number) {
+                case 1 -> {
+                    System.out.println("case 1");
+                    // redundant in swtich expression without return value
+                    break;
+                }
+                case 2 -> System.out.println("case 2");
+                case '3' -> System.out.println("case 3");
+                case 3 -> System.out.println("case 3 int");
+                // default is not necesary
+            // semicolon is not necesary and reduntant in switch expresssion without retuned value
+            }
+        }
 
 
     }

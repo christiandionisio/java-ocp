@@ -235,13 +235,14 @@ public class HandlingStreams {
         {
             System.out.println(Stream.iterate(1, x -> ++x)
                 .limit(5).map(x -> "" + x)
-                .collect(Collectors.joining()));
+                .collect(Collectors.joining("|")));
         }
 
         {
             var spliterator = Stream.generate(() -> "x")
                 .spliterator();
             
+            spliterator.forEachRemaining(System.out::println);
             spliterator.tryAdvance(System.out::print);  
             var split = spliterator.trySplit();
             split.tryAdvance(System.out::print);
