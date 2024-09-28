@@ -15,7 +15,7 @@ public class LionPenManager {
       }
    }
     public static void main(String[] args) {
-        var service = Executors.newFixedThreadPool(3);
+        var service = Executors.newFixedThreadPool(4);
         try {
             var manager = new LionPenManager();
             var c1 = new CyclicBarrier(4);

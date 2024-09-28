@@ -52,10 +52,10 @@ public class CreateThread {
 
         
         // {
-        //     ExecutorService service = Executors.newSingleThreadExecutor();
+        //     ExecutorService service = Executors.newSingleThreadExecutor();;
         //     try {
         //         Future<?> result = service.submit(() -> {
-        //             // try {Thread.sleep(15000);} catch(InterruptedException e) {}
+        //             try {Thread.sleep(5000);} catch(InterruptedException e) {}
         //             for(int i = 0; i < 1_000_000; i++) counter++;
         //         });
         //         System.out.println(result.get(10, TimeUnit.SECONDS)); // Returns null for Runnable
@@ -84,7 +84,10 @@ public class CreateThread {
         // {
         //     ScheduledExecutorService service
         //         = Executors.newSingleThreadScheduledExecutor();
-        //     Runnable task1 = () -> System.out.println("Hello Zoo");
+        //     Runnable task1 = () -> {
+        //         try {Thread.sleep(6000);} catch(InterruptedException e) {}
+        //         System.out.println("Hello Zoo");
+        //     };
         //     Callable<String> task2 = () -> "Monkey";
         //     try {
         //         ScheduledFuture<?> r1 = service.schedule(task1, 10, TimeUnit.SECONDS);
@@ -94,27 +97,27 @@ public class CreateThread {
         //     } finally {
         //         service.shutdown();
         //     }
-        //         // service.scheduleAtFixedRate(task1, 5, 10, TimeUnit.SECONDS); // no waits to finish task1
+        //         // service.scheduleAtFixedRate(task1, 5, 4, TimeUnit.SECONDS); // no waits to finish task1
         //         // service.scheduleWithFixedDelay(task1, 2, 5, TimeUnit.SECONDS);  // waits to finish task1
         // }
 
 
-        // Locks methods
-        // {
-        //     Lock lock = new ReentrantLock();
-        //     new Thread(() -> printHello(lock)).start();
-        //     // Thread.sleep(1000);
-        //     if(lock.tryLock()) {
-        //         try {
-        //             System.out.println("Lock obtained, entering protected code");
-        //         } finally {
-        //             System.out.println("protected code unlocking");
-        //             lock.unlock();
-        //         }
-        //     } else {
-        //         System.out.println("Unable to acquire lock, doing something else");
-        //     }
-        // }
+        //Locks methods
+        {
+            Lock lock = new ReentrantLock();
+            new Thread(() -> printHello(lock)).start();
+            // Thread.sleep(1000);
+            if(lock.tryLock()) {
+                try {
+                    System.out.println("Lock obtained, entering protected code");
+                } finally {
+                    System.out.println("protected code unlocking");
+                    lock.unlock();
+                }
+            } else {
+                System.out.println("Unable to acquire lock, doing something else");
+            }
+        }
         {
             Lock lock = new ReentrantLock();
             new Thread(() -> printHello(lock)).start();

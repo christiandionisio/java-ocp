@@ -7,7 +7,7 @@ import java.util.function.*;
 
 public class Practice {
 
-    public static void main(String ...args) {
+    public static void main(String ...args) throws Exception {
 
 
         // {
@@ -181,37 +181,71 @@ public class Practice {
         //         Collectors.groupingBy(s -> s,Collectors.counting()
         //     ));
 
-        //     // // the long way
-        //     // Map<String, Long> countsManual = wordStream.collect(
-        //     //     () -> {
-        //     //         Map<String, Long> map = new HashMap<>();
-        //     //         return map;
-        //     //     },
-        //     //     (map, s) -> {
-        //     //         if(map.get(s) == null) {
-        //     //             map.put(s, 1L);
-        //     //         } else {
-        //     //             map.put(s, map.get(s) + 1L);
-        //     //         }
-        //     //     },
-        //     //     (map1, map2) -> {
-        //     //         // when there are multithreading executing
-        //     //         // this do nothing
-        //     //         System.out.println("Map1: " + map1);
-        //     //         System.out.println("Map2: " + map2);
-        //     //     }
-        //     // );
+        //     // the long way
+        //     Map<String, Long> countsManual = wordStream.collect(
+        //         () -> {
+        //             Map<String, Long> map = new HashMap<>();
+        //             return map;
+        //         },
+        //         (map, s) -> {
+        //             if(map.get(s) == null) {
+        //                 map.put(s, 1L);
+        //             } else {
+        //                 map.put(s, map.get(s) + 1L);
+        //             }
+        //         },
+        //         (map1, map2) -> {
+        //             // when there are multithreading executing
+        //             // this do nothing
+        //             System.out.println("Map1: " + map1);
+        //             System.out.println("Map2: " + map2);
+        //         }
+        //     );
         //     System.out.println(counts);
         // }
 
 
+        // {
+        //     List<Integer> ls = Arrays.asList(10,47,33,23);
+        //     // int max = ls.stream().max(Comparator.comparing(a->a)).get();
+        //     // int max = ls.stream().max((a, b) -> a-b).get();
+        //     int max = ls.stream().max(Comparator.comparing(Function.identity())).get();
+        //     // int max = ls.stream().reduce((a, b) -> (a>b) ? a : b).get();
+        //     System.out.println(max);
+        // }
+
+        // {
+        //     List<Movie> movies = Arrays.asList(
+        //         new Movie("Titanic", Movie.Genre.DRAMA, 'U'),
+        //         new Movie("Psycho", Movie.Genre.THRILLER, 'U'),
+        //         new Movie("Oldboy", Movie.Genre.THRILLER, 'R'),
+        //         new Movie("Shining", Movie.Genre.HORROR, 'U')
+        //     );
+
+        //     movies.stream()
+        //         .filter(mov -> mov.getRating() == 'R')
+        //         .peek(mov -> System.out.println(mov.getName()))
+        //         .map(mov -> mov.getName());
+        //         // .findAny();  // terminal operations is mandatory to execute intermediate operations
+        // }
+
+        // {
+        //     A a = new A();
+        //     a.start();
+        //     Thread.sleep(1000);
+        //     a.interrupt();
+        // }
+
+        // {
+        //     // var ia[][] = {{1,2}, null}; // not allowed as an element type of an array
+        //     var ia = new int[][]{{1,2}, null};
+        //     for(int i = 0; i<2; i++)
+        //         for(int j = 0; j<2; j++)
+        //             System.out.println(ia[i][j]);
+        // }
+
         {
-            List<Integer> ls = Arrays.asList(10,47,33,23);
-            // int max = ls.stream().max(Comparator.comparing(a->a)).get();
-            // int max = ls.stream().max((a, b) -> a-b).get();
-            int max = ls.stream().max(Comparator.comparing(Function.identity())).get();
-            // int max = ls.stream().reduce((a, b) -> (a>b) ? a : b).get();
-            System.out.println(max);
+            System.out.println(Sub.ID);
         }
 
     }
@@ -245,6 +279,43 @@ public class Practice {
 
 }
 
-class A { int i = 10;  int m1( ) { System.out.println("class A"); return i; } } 
-class B extends A { int i = 20;  int m1() { System.out.println("class B"); return i; } } 
-class C extends B { int i = 30;  int m1() { System.out.println("class C"); return i; } }
+// class A { int i = 10;  int m1( ) { System.out.println("class A"); return i; } } 
+// class B extends A { int i = 20;  int m1() { System.out.println("class B"); return i; } } 
+// class C extends B { int i = 30;  int m1() { System.out.println("class C"); return i; } }
+
+class Movie {
+    static enum Genre {DRAMA, THRILLER, HORROR, ACTION};
+    private Genre genre;
+    private String name;
+    private char rating = 'R';
+    Movie(String name, Genre genre, char rating) {
+        this.name = name; this.genre = genre; this.rating = rating;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public char getRating() {
+        return this.rating;
+    }
+}
+
+class A extends Thread {
+    // volatile boolean flag = true; // making volatile this variable will be visible to all threads
+    boolean flag = true; 
+
+    public void run() {
+        System.out.println("Starting loop");
+
+        while(!isInterrupted()){};
+
+        System.out.println("Ending loop");
+    }
+}
+
+class Super { static String ID = "QBANK"; }
+class Sub extends Super {
+    static {System.out.print("In sub");}
+}
+
