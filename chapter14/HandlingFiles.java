@@ -92,31 +92,31 @@ public class HandlingFiles {
         // }
 
         
-            // // Relativizing a path
-            // {
-            //     var path1 = Path.of("./fish.txt");
-            //     var path2 = Path.of("friendly/birds.txt");
-            //     System.out.println(path1.relativize(path2));
-            //     System.out.println(path2.relativize(path1));
+        // // Relativizing a path
+        // {
+        //     var path1 = Path.of("./fish.txt");
+        //     var path2 = Path.of("friendly/birds.txt");
+        //     System.out.println(path1.relativize(path2));
+        //     System.out.println(path2.relativize(path1));
 
-            //     Path path3 = Paths.get("/habitat");
-            //     Path path4 = Paths.get("/sanctuary/raven/poe.txt");
-            //     System.out.println(path3.relativize(path4));
-            //     System.out.println(path4.relativize(path3));
+        //     Path path3 = Paths.get("/habitat");
+        //     Path path4 = Paths.get("/sanctuary/raven/poe.txt");
+        //     System.out.println(path3.relativize(path4));
+        //     System.out.println(path4.relativize(path3));
 
-            //     // Path path1 = Paths.get("/primate/chimpanzee");
-            //     // Path path2 = Paths.get("bananas.txt");
-            //     // path1.relativize(path2); // IllegalArgumentException
+        //     // Path path1 = Paths.get("/primate/chimpanzee");
+        //     // Path path2 = Paths.get("bananas.txt");
+        //     // path1.relativize(path2); // IllegalArgumentException
 
-            //     Path path5 = Paths.get("/habitat/room/../bed");
-            //     Path path6 = Paths.get("/sanctuary/raven/poe.txt");
-            //     System.out.println(path5.relativize(path6));
-            //     System.out.println(path6.relativize(path5));
+        //     Path path5 = Paths.get("/habitat/room/../bed");
+        //     Path path6 = Paths.get("/sanctuary/raven/poe.txt");
+        //     System.out.println(path5.relativize(path6));
+        //     System.out.println(path6.relativize(path5));
 
-            //     // this method only works for both paths whether both are relatives
-            //     // or both are absolutes, both must be the same type of path
-            //     // or there will be an IllegalArgumentException
-            // }
+        //     // this method only works for both paths whether both are relatives
+        //     // or both are absolutes, both must be the same type of path
+        //     // or there will be an IllegalArgumentException
+        // }
 
 
         // // Normalizing path
@@ -224,18 +224,18 @@ public class HandlingFiles {
         // }
 
 
-        // Retrieving attributes
-        {
-            var path = Paths.get("./stripes.txt");
-            BasicFileAttributes data = Files.readAttributes(path,
-                BasicFileAttributes.class);
+        // // Retrieving attributes
+        // {
+        //     var path = Paths.get("./stripes.txt");
+        //     BasicFileAttributes data = Files.readAttributes(path,
+        //         BasicFileAttributes.class);
             
-            System.out.println("Is a directory? " + data.isDirectory());
-            System.out.println("Is a regular file? " + data.isRegularFile());
-            System.out.println("Is a symbolic link? " + data.isSymbolicLink());
-            System.out.println("Size (in bytes): " + data.size());
-            System.out.println("Last modified: " + data.lastModifiedTime());
-        }
+        //     System.out.println("Is a directory? " + data.isDirectory());
+        //     System.out.println("Is a regular file? " + data.isRegularFile());
+        //     System.out.println("Is a symbolic link? " + data.isSymbolicLink());
+        //     System.out.println("Size (in bytes): " + data.size());
+        //     System.out.println("Last modified: " + data.lastModifiedTime());
+        // }
 
         // // Modifying Attributes
         // {
@@ -271,6 +271,14 @@ public class HandlingFiles {
         //     s.forEach(System.out::println);
         //     }
         // }
+
+        { 
+            RandomAccessFile raf = new RandomAccessFile("file.txt", "rw"); 
+            // raf.seek( raf.length() ); 
+            // raf.writeChars("FINAL TEXT");
+            System.out.println(raf.readLine());
+            System.out.println(raf.readLine());
+        }
 
     }
 
