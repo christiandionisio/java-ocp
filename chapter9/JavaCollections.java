@@ -40,59 +40,59 @@ public class JavaCollections {
         //     System.out.println(queue.peek());
         // }
 
-        // // Deque methods
-        // {
-        //     Deque<Integer> deque = new LinkedList<>();
-        //     deque.add(11);
-        //     deque.addFirst(12);
-        //     deque.offerFirst(13);
-        //     deque.addLast(14);
-        //     deque.offerLast(15);
-        //     deque.add(16);
-        //     System.out.println(deque);
-        //     System.out.println(deque.peekLast());
-        //     System.out.println(deque.peekFirst());
-        //     System.out.println(deque.removeLast());
-        //     System.out.println(deque.removeFirst());
-        //     System.out.println(deque);
-
-        //     // using as a stack
-        //     deque.push(16);
-        //     System.out.println(deque);
-        //     deque.pop();
-        //     System.out.println(deque);
-        // }
-
+        // Deque methods
         {
-            Map<Integer, String> mapObject = new HashMap<>();
-            System.out.println(mapObject.put(1, "hola"));
-            System.out.println(mapObject.putIfAbsent(2, "mundo"));
-            System.out.println(mapObject.putIfAbsent(2, "replaced"));
-            System.out.println(mapObject);
-            System.out.println();
+            Deque<Integer> deque = new LinkedList<>();
+            deque.add(11);
+            deque.addFirst(12);
+            deque.offerFirst(13);
+            deque.addLast(14);
+            deque.offerLast(15);
+            deque.add(16);
+            System.out.println(deque);
+            System.out.println(deque.peekLast());
+            System.out.println(deque.peekFirst());
+            System.out.println(deque.removeLast());
+            System.out.println(deque.removeFirst());
+            System.out.println(deque);
 
-            System.out.println(mapObject.getOrDefault(2, "default"));
-            System.out.println(mapObject.getOrDefault(3, "default"));
-            System.out.println();
-
-            var entrySetIterator =  mapObject.entrySet().iterator();
-            while(entrySetIterator.hasNext()) {
-                var mapEntry = entrySetIterator.next();
-                System.out.print(mapEntry.getKey() + " : ");
-                System.out.println(mapEntry.getValue());
-            }
-            System.out.println();
-
-            mapObject.replaceAll((k, v) -> v.equals("mundo") ? "world" : v);
-            System.out.println(mapObject);
-            System.out.println();
-
-            mapObject.merge(2, "[new value]", (olderVal, newVal) -> (olderVal.concat(newVal)));
-            mapObject.merge(3, "[new value 3]", String::concat);
-            // If function returns null then the key, value is deleted
-            mapObject.merge(1, "[new value 3]", (val1, val2) -> val1.equals("hola") ? null : val2);
-            System.out.println(mapObject);
+            // using as a stack
+            deque.push(16);
+            System.out.println(deque);
+            deque.pop();
+            System.out.println(deque);
         }
+
+        // {
+        //     Map<Integer, String> mapObject = new HashMap<>();
+        //     System.out.println(mapObject.put(1, "hola"));
+        //     System.out.println(mapObject.putIfAbsent(2, "mundo"));
+        //     System.out.println(mapObject.putIfAbsent(2, "replaced"));
+        //     System.out.println(mapObject);
+        //     System.out.println();
+
+        //     System.out.println(mapObject.getOrDefault(2, "default"));
+        //     System.out.println(mapObject.getOrDefault(3, "default"));
+        //     System.out.println();
+
+        //     var entrySetIterator =  mapObject.entrySet().iterator();
+        //     while(entrySetIterator.hasNext()) {
+        //         var mapEntry = entrySetIterator.next();
+        //         System.out.print(mapEntry.getKey() + " : ");
+        //         System.out.println(mapEntry.getValue());
+        //     }
+        //     System.out.println();
+
+        //     mapObject.replaceAll((k, v) -> v.equals("mundo") ? "world" : v);
+        //     System.out.println(mapObject);
+        //     System.out.println();
+
+        //     mapObject.merge(2, "[new value]", (olderVal, newVal) -> (olderVal.concat(newVal)));
+        //     mapObject.merge(3, "[new value 3]", String::concat);
+        //     // If function returns null then the key, value is deleted
+        //     mapObject.merge(1, "[new value 3]", (val1, val2) -> val1.equals("hola") ? null : val2);
+        //     System.out.println(mapObject);
+        // }
 
 
 

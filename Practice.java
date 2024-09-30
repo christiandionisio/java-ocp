@@ -244,8 +244,37 @@ public class Practice {
         //             System.out.println(ia[i][j]);
         // }
 
+        // {
+        //     System.out.println(Sub.ID);
+        //     // Sub sub = new Sub();
+        // }
+
+        // {
+        //     TestClass testClass = new TestClass();
+        //     testClass.m1();
+        // }
+
+        // {
+        //     List<String> vowels = new ArrayList<String>(); 
+        //     vowels.add("a"); 
+        //     vowels.add("e"); 
+        //     vowels.add("i"); 
+        //     vowels.add("o"); 
+        //     vowels.add("u"); 
+            
+        //     Function<List<String>, List<String>> f = list->list.subList(2, 4); 
+        //     List<String> view = f.apply(vowels); 
+        //     // view.add(1, "x");   // this modify view and vowels lists
+        //     vowels.forEach(System.out::print); 
+        // }
+
         {
-            System.out.println(Sub.ID);
+            String sentence = "Life is a box of chocolates, Forrest. You never know what you're gonna get.";
+
+            boolean theWord = Stream.of(sentence.split("[ ,.]"))
+                .peek(System.out::println)
+                .anyMatch(w -> w.startsWith("g"));
+            System.out.println(theWord);
         }
 
     }
@@ -314,8 +343,29 @@ class A extends Thread {
     }
 }
 
-class Super { static String ID = "QBANK"; }
+class Super { 
+    static String ID = "QBANK"; 
+    // static {System.out.print("In Super");}
+}
 class Sub extends Super {
+    // static String ID = "IDSUB";
     static {System.out.print("In sub");}
+}
+
+interface T1 {
+    int VALUE = 1;
+    void m1();
+    default void m2() {}
+}
+
+interface T2 {
+    int VALUE = 2;
+    void m1();
+    default void m2() {}
+}
+
+class TestClass implements T1, T2 {
+    public void m1(){}
+    public void m2(){} // without this implementation it will be an error
 }
 
