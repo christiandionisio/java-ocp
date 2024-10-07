@@ -10,7 +10,7 @@ import java.util.stream.*;
 import java.util.*;
 
 public class HandlingFiles {
-    public static void main(String ...args) throws Exception {
+    public static void main(String ...args) throws IOException, ClassNotFoundException {
 
         // // Creating a File
         // {
@@ -272,12 +272,69 @@ public class HandlingFiles {
         //     }
         // }
 
-        { 
-            RandomAccessFile raf = new RandomAccessFile("file.txt", "rw"); 
-            // raf.seek( raf.length() ); 
-            // raf.writeChars("FINAL TEXT");
-            System.out.println(raf.readLine());
-            System.out.println(raf.readLine());
+        // { 
+        //     RandomAccessFile raf = new RandomAccessFile("file.txt", "rw"); 
+        //     // raf.seek( raf.length() ); 
+        //     // raf.writeChars("FINAL TEXT");
+        //     System.out.println(raf.readLine());
+        //     System.out.println(raf.readLine());
+        // }
+
+        // {
+        //     Path p1  = Paths.get("/../temp/./test.txt");
+        //     System.out.println(p1.normalize());             // /temp/test.txt
+        //     System.out.println(p1.normalize().toUri());     // file:///temp/test.txt
+        // }
+
+
+        // {
+        //     var bfr = new BufferedReader(new FileReader("./a.txt"));
+        //     // var bfw = new BufferedWriter(new FileWriter("./b.txt", true));   // true continues to write file without overriding
+        //     var bfw = new BufferedWriter(new FileWriter("./b.txt", true));
+
+        //     String line = null;
+        //     while((line = bfr.readLine()) != null) {
+        //         bfw.append(line);
+        //     }
+
+        //     // bfw.flush();    // makes the content in buffer writes to the file
+        //     bfw.close();    // makes a flush automatically before closing the buffer
+        //     bfw.close();
+        // }
+
+        {
+            class Person implements Serializable {
+                String name;
+                Person(String name) {
+                    this.name = name;
+                }
+            }
+
+            class Student extends Person {
+                // String school;
+                transient String school;
+                public Student(String name, String school) {
+                    super(name);
+                    this.school = school;
+                }
+
+                public String toString() {
+                    return name + " " + school;
+                }
+
+                private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+                    stream.defaultReadObject();
+                    school = "LALALALALALA";
+                }
+            }
+
+            Person p = new Student("Bob Dylan", "NYU");
+            try( ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("test.txt"));
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("test.txt"))) {
+                    oos.writeObject(p);
+                    oos.flush();
+                    System.out.println((Student) ois.readObject());     // ClassNotFoundException and IOExceeption could be thrown
+            }
         }
 
     }
