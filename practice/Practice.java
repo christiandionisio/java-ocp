@@ -9,7 +9,7 @@ import java.io.*;
 
 public class Practice {
 
-    public static void main(String ...args) throws Exception {
+    public static void main(String ...args) {
 
 
         // {
@@ -542,13 +542,159 @@ public class Practice {
         // }
 
 
+        // {
+        //     try {
+        //         int i = 0;
+        //         i = Integer.parseInt(args[0]);  // 1_00 will throw NumberFormatException
+        //     } catch(NumberFormatException e) {
+        //         System.out.println("Problem in");
+        //     }
+        // }
+
+
+        // {
+        //     class TestClass {
+        //         void probe(int ...x) {System.out.println("In ...");}
+        //         void probe(Integer x) {System.out.println("In Integer");}
+        //         void probe(long x) {System.out.println("In long");}
+        //         // void probe(double x) {System.out.println("In double");}
+        //         void probe(Long x) {System.out.println("In LONG");}
+        //     }
+
+        //     Integer a = 4; new TestClass().probe(a);
+        //     int b = 4; new TestClass().probe(b);
+        // }
+
+        // {
+        //     class TestClass extends Thread {
+        //         private static int threadcounter = 0;
+        //         public synchronized void run() {
+        //             threadcounter++;
+        //             System.out.println(threadcounter);
+        //         }
+        //     }
+
+        //     for(int i=0; i<10; i++) {
+        //         // synchronized(TestClass.class) {
+        //             new TestClass().start();
+        //         // }
+        //     }
+        // }
+
+        // {
+        //     char a = 'a', b = 98;
+        //     int a1 = a;
+        //     int b1 = (int) b;
+        //     System.out.println((char)'a' + (char)'b');
+        //     System.out.println((char)(a + b));
+        //     System.out.println(a);
+        //     System.out.println(b);
+        // }
+
+        // {
+        //     var a = new int[]{1,2,3,4};
+        //     int[] b = {2,3,1,0};
+        //     // var[] b = {2,3,1,0};    // not valid, not compile
+        //     // var b = {2,3,1,0};  // not valid, not compile
+        //     System.out.println(a[(a=b)[3]]);
+        // }
+
+
+        // {
+        //     interface Movable {
+        //         public default void move(int dx) {};
+        //     }
+
+        //     interface Growable {
+        //         public default void move(int dx) {};
+        //     }
+
+        //     class Animal implements Movable, Growable {}
+        // }
+
+        // {
+        //     try (Reader r = new BufferedReader(new FileReader("test.txt"))) {
+        //         if(r.markSupported()) {
+        //             BufferedReader in = (BufferedReader) r;
+        //             System.out.println(in.readLine());
+        //             in.mark(100);
+        //             System.out.println(in.readLine());
+        //             System.out.println(in.readLine());
+        //             in.reset();
+        //             System.out.println(in.readLine());
+        //             in.reset();
+        //             System.out.println(in.readLine());
+        //         } else {
+        //             System.out.println("Mark not supported");
+        //         }
+        //     } catch(IOException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
+
+        // {
+        //     class Device implements AutoCloseable {
+        //         String header = null;
+        //         public Device(String name) throws IOException {
+        //             header = name;
+        //             if("D2".equals(name)) throw new IOException("Unknnown");    // shows this exception, then the others as sspressed
+        //             System.out.println(header + "Opened");
+        //         }
+
+        //         public String read() throws IOException {
+        //             return "";
+        //         }
+
+        //         public void close() {
+        //             System.out.println("Closing device " + header);
+        //             throw new RuntimeException("RTE while closing " + header);
+        //         }
+        //     }
+
+        //     try(Device d1 = new Device("D1");
+        //         Device d2 = new Device("D2")) {
+        //             throw new Exception("test");
+        //         }
+        // }
+
+
+        // {
+        //     String [][][] arr = {
+        //         {{"a", "b", "c"}, {"d", "e", null}},
+        //         {{"x"}, null},
+        //         {{"y"}},
+        //         {{"z", "p"}, {}}
+        //     };
+
+        //     System.out.println(arr[3][1]);
+        // }
+
+
+        // {
+        //     class Game {
+        //         public void play() throws Exception {
+        //             System.out.println("Playing...");
+        //         }
+        //     }
+
+        //     class Soccer extends Game {
+        //         public void play() {
+        //             System.out.println("Playing soccer...");
+        //         }
+        //     }
+
+            
+        //     // Game g = new Soccer();      // needs to handle Exception
+        //     Soccer g = new Soccer();
+        //     g.play(); 
+        // }
+
         {
-            try {
-                int i = 0;
-                i = Integer.parseInt(args[0]);  // 1_00 will throw NumberFormatException
-            } catch(NumberFormatException e) {
-                System.out.println("Problem in");
-            }
+            Integer i = Integer.parseInt(args[0]);
+            Integer j = i;
+            i--;
+            i++;
+            System.out.println((i==j));
         }
 
     }

@@ -106,5 +106,35 @@ public class SetupDatabase {
             ps.setInt(2, type);
             ps.executeUpdate();
         }
-    } 
+    }
+
+    /** 
+     * JDBC 2.0 allows you to use ResultSet object to update an existing row 
+     * and even insert new row in the database. For both the cases, 
+     * the ResultSet must be updatable, which can be achieved by passing 
+     * ResultSet.CONCUR_UPDATABLE while creating a Statement 
+     * object: stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,  ResultSet.CONCUR_UPDATABLE); 
+     * or stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE);  
+     * 
+     * The general usage pattern for this functionality is as follows -  
+     * To update an existing row:  
+     * 1. First, go to the row you want to update. 
+     * You can either iterate through a ResultSet to reach a particular row or just call rs.absolute(int rowNumber). 
+     * 2. Now update the columns of the ResultSet with required values 
+     * using rs.updateXXX(columnNumber, value) or rs.updateXXX(columnName, value) methods. 
+     * 3. Call rs.updateRow(); If you call rs.refreshRow() without calling updateRow(), 
+     * the updates will be lost.  
+     * To insert a new Row: 
+     * 1. Call rs.moveToInsertRow(); first. You can't insert a row without calling this method first. 
+     * 2. Use rs.updateXXX methods to update all column values. You must set values for all the columns. 
+     * 3. Call rs.insertRow();  
+     * 4. Call rs.moveToCurrentRow(); to go back to the row where you were before calling moveToInsertRow.  
+     * IMPORTANT: The exam will test you on implications of calling various methods out 
+     * of sequence. For example, what happens when you call insertRow without first 
+     * calling moveToInsertRow? (An SQLException will be thrown.) or what happens when
+     * you call refreshRow without first calling updateRow? 
+     * (No exception but updates will be lost.). 
+     * You should go through the JavaDoc API description for all the methods involved 
+     * in update/inserting rows in the database using a ResultSet.
+     * */ 
 }
