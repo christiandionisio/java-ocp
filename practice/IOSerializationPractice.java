@@ -49,19 +49,29 @@ public class IOSerializationPractice {
         //     }
         // }
 
-        // DyrectoryStream  iterates files
-        {
-            Path dir = Paths.get("./");
+        // // DyrectoryStream  iterates files
+        // {
+        //     Path dir = Paths.get("./");
 
-            try {
-                DirectoryStream<Path> ds = Files.newDirectoryStream(dir, "*.{java,ser}");
-                for(Path p: ds) {
-                    System.out.println(p);
-                }
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+        //     try {
+        //         DirectoryStream<Path> ds = Files.newDirectoryStream(dir, "*.{java,ser}");
+        //         for(Path p: ds) {
+        //             System.out.println(p);
+        //         }
+        //     } catch(Exception e) {
+        //         e.printStackTrace();
+        //     }
+        // }
+
+        // Files.move(p1,p2)
+        {
+            Path p1 = Paths.get("./temp/src/foo.bar/module-info.java");     // for moving this file must exist
+            Path p2 = Paths.get("./temp/out/foo.bar/module-info.java");  // if destiny exists by default this will be thrown FileAlreadyExistsException
+            // Files.move(p1, p2);  // if the target exists this will throw FileAlreadyExistsException
+            Files.move(p1, p2, StandardCopyOption.REPLACE_EXISTING);    // fills the folder if its empty, otherwise this will throw an exception
         }
+
+
 
 
     }
