@@ -147,27 +147,77 @@ public class StreamPractice {
         // }
 
 
-        // Arrays Unsuported operation
+        // // Arrays Unsuported operation
+        // {
+        //     class Data {
+        //         int value;
+        //         Data (int value) {
+        //             this.value = value;
+        //         }
+        //         public String toString() {return "" + value;}
+        //     }
+
+        //     Data[] dataArr = new Data[]{ new Data(1),
+        //         new Data(2), new Data(3), new Data(4)};
+
+        //     List<Data> dataList = Arrays.asList(dataArr);
+        //     // List<Data> dataList = new CopyOnWriteArrayList(Arrays.asList(dataArr));  // with this would compile
+
+        //     for(Data element: dataList) {
+        //         dataList.removeIf((Data d) -> {return d.value%2 == 0;});    // java.lang.UnsupportedOperationException
+        //         // System.out.println("Removed " + d + ", ");
+        //         // System.out.println("dataListFinal " + dataList);
+        //     }
+        // }
+
+
+        // // Collectors toMap(Function, Function, merge)
+        // {
+        //     class Book {
+        //         private String title;
+        //         private Double price;
+        //         public Book(String title, Double price) {
+        //             this.title=title;
+        //             this.price=price;
+        //         }
+        //         public String getTitle() {
+        //             return this.title;
+        //         }
+
+        //         public Double getPrice() {
+        //             return this.price;
+        //         }
+        //     }
+
+        //     List<Book> books = Arrays.asList(new Book("Gone with the wind", 5.0),
+        //         new Book("Gone with the wind", 10.0),
+        //         new Book("Atlas Shrugged", 15.0)
+        //     );
+
+        //     // books.stream().collect(Collectors.toMap((b -> b.getTitle()), b -> b.getPrice()))    // no compile, this needs to merge
+        //     //     .forEach((a,b) -> System.out.println(a + " " + b));
+
+        //     books.stream().collect(Collectors.toMap((b -> b.getTitle()), b -> b.getPrice(), (v1, v2) -> v1 + v2))
+        //         .forEach((a,b) -> System.out.println(a + " " + b));
+        // }
         {
-            class Data {
-                int value;
-                Data (int value) {
-                    this.value = value;
-                }
-                public String toString() {return "" + value;}
-            }
-
-            Data[] dataArr = new Data[]{ new Data(1),
-                new Data(2), new Data(3), new Data(4)};
-
-            List<Data> dataList = Arrays.asList(dataArr);
-            // List<Data> dataList = new CopyOnWriteArrayList(Arrays.asList(dataArr));  // with this would compile
-
-            for(Data element: dataList) {
-                dataList.removeIf((Data d) -> {return d.value%2 == 0;});    // java.lang.UnsupportedOperationException
-                // System.out.println("Removed " + d + ", ");
-                // System.out.println("dataListFinal " + dataList);
-            }
+            var tickers = List.of("A", "D", "E", "C", "A");
+            var ratio = List.of(1.0, 1.2, 1.5, 1.8, 2.0);
+            var map1 = IntStream.range(0, tickers.size())
+                .boxed()
+                .collect(Collectors.toMap(i -> tickers.get(i),
+                    i -> 1.0/ratio.get(i), (x,y) -> x+y));
+            
+            // var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByKey(String::compareTo))      //compiles
+            // var map2 = map1.entrySet().stream().sorted((a, b) -> a.getKey().compareTo(b.getKey()))      // compiles
+            // var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByValue())        // compiles
+            var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByKey())
+                .collect(
+                    Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, 
+                        (x,y) -> x-y, LinkedHashMap::new)
+                );
+            
+            map2.forEach((var k, var v) -> System.out.printf("%s = %.2f\n", k, v));
         }
 
     }

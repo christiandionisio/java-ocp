@@ -18,13 +18,23 @@ public class DateTimePractice {
         //     System.out.println(d);
         // }
 
-        // Duration and Periods
+        // // Duration and Periods
+        // {
+        //     Duration d = Duration.ofHours(25);    // only accepts long
+        //     System.out.println(d);
+        //     Duration ds = Duration.ofSeconds(25, 122);   
+        //     System.out.println(ds);
+        //     Period p = Period.ofDays(1);      // only accepts int
+        //     System.out.println(p);
+        // }
         {
-            Duration d = Duration.ofHours(25);    // only accepts long
+            Duration d = Duration.ofDays(1);
             System.out.println(d);
-            Duration ds = Duration.ofSeconds(25, 122);   
-            System.out.println(ds);
-            Period p = Period.ofDays(1);      // only accepts int
+            d = Duration.ofMinutes(0);
+            System.out.println(d);
+            Period p = Period.ofMonths(0);
+            System.out.println(p);
+            p = Period.ofYears(0);
             System.out.println(p);
         }
 

@@ -63,12 +63,20 @@ public class IOSerializationPractice {
         //     }
         // }
 
-        // Files.move(p1,p2)
+        // // Files.move(p1,p2)
+        // {
+        //     Path p1 = Paths.get("./temp/src/foo.bar/module-info.java");     // for moving this file must exist
+        //     Path p2 = Paths.get("./temp/out/foo.bar/module-info.java");  // if destiny exists by default this will be thrown FileAlreadyExistsException
+        //     // Files.move(p1, p2);  // if the target exists this will throw FileAlreadyExistsException
+        //     Files.move(p1, p2, StandardCopyOption.REPLACE_EXISTING);    // fills the folder if its empty, otherwise this will throw an exception
+        // }
+
+
+        // RandomAccessFile
         {
-            Path p1 = Paths.get("./temp/src/foo.bar/module-info.java");     // for moving this file must exist
-            Path p2 = Paths.get("./temp/out/foo.bar/module-info.java");  // if destiny exists by default this will be thrown FileAlreadyExistsException
-            // Files.move(p1, p2);  // if the target exists this will throw FileAlreadyExistsException
-            Files.move(p1, p2, StandardCopyOption.REPLACE_EXISTING);    // fills the folder if its empty, otherwise this will throw an exception
+            var raf = new RandomAccessFile("./test.txt", "rwd");
+            raf.writeChars("hello world");
+            raf.close();
         }
 
 

@@ -1,4 +1,5 @@
 import java.util.concurrent.*;
+import java.util.concurrent.locks.*;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -44,40 +45,74 @@ public class ConcurrencyPractice {
 
         // }
 
-        // syncronized deadlock
+        // // syncronized deadlock
+        // {
+        //     class Test extends Thread {
+        //         boolean flag = false;
+        //         public Test(boolean f) {flag = f;}
+        //         static Object obj1 = new Object();
+        //         static Object obj2 = new Object();
+
+        //         public void m1() {
+        //             synchronized(obj1) {
+        //                 System.out.print("1 ");
+        //                 synchronized(obj2) {
+        //                     System.out.println("2");
+        //                 }
+        //             }
+        //         }
+
+        //         public void m2() {
+        //             synchronized(obj2) {
+        //                 System.out.print("2 ");
+        //                 synchronized(obj1) {
+        //                     System.out.println("1");
+        //                 }
+        //             }
+        //         }
+
+        //         public void run() {
+        //             if(flag) {m1(); m2();}
+        //             else {m2(); m1();}
+        //         }
+        //     }
+
+        //     new Test(true).start();
+        //     new Test(false).start();
+        // }
+
+
+        // Locks trylock
         {
-            class Test extends Thread {
-                boolean flag = false;
-                public Test(boolean f) {flag = f;}
-                static Object obj1 = new Object();
-                static Object obj2 = new Object();
-
-                public void m1() {
-                    synchronized(obj1) {
-                        System.out.print("1 ");
-                        synchronized(obj2) {
-                            System.out.println("2");
-                        }
-                    }
-                }
-
-                public void m2() {
-                    synchronized(obj2) {
-                        System.out.print("2 ");
-                        synchronized(obj1) {
-                            System.out.println("1");
-                        }
-                    }
-                }
+            class T extends Thread {
+                public static Lock lock = new ReentrantLock();
+                public T(String name){super(name);}
+                static StringBuilder data = new StringBuilder();
 
                 public void run() {
-                    if(flag) {m1(); m2();}
-                    else {m2(); m1();}
+                    if(lock.tryLock()) {
+                        System.out.println("Trylock ok");
+                        try {
+                            lock.lock();
+                            data.append("hello");
+                        } finally {
+                            lock.unlock();
+                            // lock.unlock();       // must unlock twice becuase tyLock
+                        }
+                    }
                 }
             }
 
-            new Test(true).start();
-            new Test(false).start();
+            T t1 = new T("T1");
+            t1.start();
+            try {
+                t1.lock.lock();
+                System.out.println(t1.data);
+            } catch(Exception e){
+
+            } finally {
+                t1.lock.unlock();
+            }
         }
 
     }

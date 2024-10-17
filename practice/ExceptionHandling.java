@@ -6,32 +6,43 @@ public class ExceptionHandling {
         //     System.out.println(parseFloat("1F"));
         // }
 
-        // Order of catch Exceptions
+        // // Order of catch Exceptions
+        // {
+
+        //     class MyException extends Throwable {}
+        //     class MyException1 extends MyException {}
+        //     class MyExceptio2 extends MyException {}
+        //     class MyException3 extends MyExceptio2 {}
+
+        //     class ExceptionTest {
+        //         void myMethod() throws MyException {
+        //             throw new MyException3();
+        //         }
+        //     }
+
+        //     ExceptionTest et = new ExceptionTest();
+
+        //     try {
+        //         et.myMethod();
+        //     } catch(MyException me) {
+        //         System.out.println("MyException thrown");
+        //     } catch(MyException3 me3) {     // this must be first to compile from more specific to generic
+        //         System.out.println("MyException3 thrown");
+        //     } finally {
+        //         System.out.println(" Done");
+        //     }
+
+        // }
+
+        // throw null
         {
-
-            class MyException extends Throwable {}
-            class MyException1 extends MyException {}
-            class MyExceptio2 extends MyException {}
-            class MyException3 extends MyExceptio2 {}
-
-            class ExceptionTest {
-                void myMethod() throws MyException {
-                    throw new MyException3();
-                }
-            }
-
-            ExceptionTest et = new ExceptionTest();
-
             try {
-                et.myMethod();
-            } catch(MyException me) {
-                System.out.println("MyException thrown");
-            } catch(MyException3 me3) {     // this must be first to compile from more specific to generic
-                System.out.println("MyException3 thrown");
-            } finally {
-                System.out.println(" Done");
+                // RuntimeException re;        // not compile
+                RuntimeException re = null;
+                throw re;       // when this is null then NullpointerException will be thorwn
+            } catch(Exception e) {
+                System.out.println(e);
             }
-
         }
         
 
