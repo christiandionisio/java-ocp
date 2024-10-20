@@ -48,11 +48,23 @@ public class StringBuilderHandling {
         // }
 
 
+        // {
+        //     System.out.println(new StringBuilder("ddd-ddd-dddd").substring(0,8) + "xxxx");
+        //     System.out.println(new StringBuilder("ddd-ddd-dddd").replace(8,12, "xxxx").toString());
+        //     // System.out.println(new StringBuilder("xxxx").append("ddd-ddd-dddd",0,8).toString());
+        //     System.out.println(new StringBuilder("xxxx").insert(0,"ddd-ddd-dddd", 0, 8).toString());
+        // }
+
+
         {
-            System.out.println(new StringBuilder("ddd-ddd-dddd").substring(0,8) + "xxxx");
-            System.out.println(new StringBuilder("ddd-ddd-dddd").replace(8,12, "xxxx").toString());
-            // System.out.println(new StringBuilder("xxxx").append("ddd-ddd-dddd",0,8).toString());
-            System.out.println(new StringBuilder("xxxx").insert(0,"ddd-ddd-dddd", 0, 8).toString());
+
+            var stringVar = new StringBuilder("hello world");
+            char [] arr = new char[]{'h', 'o', 'l', 'a'};
+            System.out.println(stringVar.append(arr, 0, 4));
+            System.out.println(stringVar.append("hola", 0, 4));
+            System.out.println(stringVar.insert(0, arr, 0, 4));
+            System.out.println(stringVar.insert(0, "HOLA", 0, 4));
+
         }
 
 

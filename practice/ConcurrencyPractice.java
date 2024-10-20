@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class ConcurrencyPractice {
-    public static void main(String ...args) {
+    public static void main(String ...args) throws Exception {
 
 
         // // ConcurrentHashMap
@@ -82,37 +82,91 @@ public class ConcurrencyPractice {
         // }
 
 
-        // Locks trylock
-        {
-            class T extends Thread {
-                public static Lock lock = new ReentrantLock();
-                public T(String name){super(name);}
-                static StringBuilder data = new StringBuilder();
+        // // Locks trylock
+        // {
+        //     class T extends Thread {
+        //         public static Lock lock = new ReentrantLock();
+        //         public T(String name){super(name);}
+        //         static StringBuilder data = new StringBuilder();
 
-                public void run() {
-                    if(lock.tryLock()) {
-                        System.out.println("Trylock ok");
-                        try {
-                            lock.lock();
-                            data.append("hello");
-                        } finally {
-                            lock.unlock();
-                            // lock.unlock();       // must unlock twice becuase tyLock
+        //         public void run() {
+        //             if(lock.tryLock()) {
+        //                 System.out.println("Trylock ok");
+        //                 try {
+        //                     lock.lock();
+        //                     data.append("hello");
+        //                 } finally {
+        //                     lock.unlock();
+        //                     // lock.unlock();       // must unlock twice becuase tyLock
+        //                 }
+        //             }
+        //         }
+        //     }
+
+        //     T t1 = new T("T1");
+        //     t1.start();
+        //     try {
+        //         t1.lock.lock();
+        //         System.out.println(t1.data);
+        //     } catch(Exception e){
+
+        //     } finally {
+        //         t1.lock.unlock();
+        //     }
+        // }
+
+
+        // // Executors Callable Future
+        // {
+        //     class MyCallable implements Callable<String> {
+        //         public String call() throws Exception {
+        //             Thread.sleep(10000);
+        //             return "DONE";
+        //         }
+        //     }
+
+        //     var es = Executors.newSingleThreadExecutor();
+        //     var future = es.submit(new MyCallable());
+        //     System.out.println(future.get());
+        //     es.shutdownNow();
+
+        // }
+
+
+        // synchornized deadlock
+        {
+            class TestClass {
+                static StringBuffer sb1 = new StringBuffer();
+                static StringBuffer sb2 = new StringBuffer();
+            }
+
+            new Thread(
+                new Runnable() {
+                    public void run() {
+                        synchronized(TestClass.sb1) {
+                            TestClass.sb1.append("X");
+                            synchronized(TestClass.sb2) {
+                                TestClass.sb2.append("Y");
+                            }
                         }
+                        System.out.println(TestClass.sb1);
                     }
                 }
-            }
+            ).start();
 
-            T t1 = new T("T1");
-            t1.start();
-            try {
-                t1.lock.lock();
-                System.out.println(t1.data);
-            } catch(Exception e){
-
-            } finally {
-                t1.lock.unlock();
-            }
+            new Thread(
+                new Runnable() {
+                    public void run() {
+                        synchronized(TestClass.sb2) {
+                            TestClass.sb2.append("Y");
+                            synchronized(TestClass.sb1) {
+                                TestClass.sb1.append("X");
+                            }
+                        }
+                        System.out.println(TestClass.sb2);
+                    }
+                }
+            ).start();
         }
 
     }

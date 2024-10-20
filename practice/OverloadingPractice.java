@@ -26,27 +26,52 @@ public class OverloadingPractice {
         //     */
         // }
 
+        // {
+        //     class Baap {
+        //         public int h = 4;
+        //         public int getH() {
+        //             System.out.println("Baap " + h);
+        //             return h;
+        //         }
+        //     }
+
+        //     class Beta extends Baap {
+        //         public int h = 44;
+        //         public int getH() {
+        //             System.out.println("Beta " + h);
+        //             return h;
+        //         }
+        //     }
+
+        //     Baap b = new Beta();
+        //     System.out.println(b.h + " " + ((Baap)b).getH());
+        //     Beta bb = (Beta) b;
+        //     System.out.println(bb.h + " " + bb.getH()); 
+        // }
+
+
         {
-            class Baap {
-                public int h = 4;
-                public int getH() {
-                    System.out.println("Baap " + h);
-                    return h;
+            class A {
+                char var = 'A';
+                public void perform_work() {}
+            }
+            class B extends A {
+                char var = 'B';
+                public void perform_work() {}
+            }
+            class C extends B{
+                char var = 'C';
+                public void perform_work() {
+                    System.out.println(((A)this).var);
+                    System.out.println(((B)this).var);
+                    System.out.println(super.var);
+                    System.out.println(((C)this).var);
                 }
             }
 
-            class Beta extends Baap {
-                public int h = 44;
-                public int getH() {
-                    System.out.println("Beta " + h);
-                    return h;
-                }
-            }
-
-            Baap b = new Beta();
-            System.out.println(b.h + " " + ((Baap)b).getH());
-            Beta bb = (Beta) b;
-            System.out.println(bb.h + " " + bb.getH()); 
+            C c = new C();
+            c.perform_work();
+            System.out.println(((A) c).var);
         }
 
     }

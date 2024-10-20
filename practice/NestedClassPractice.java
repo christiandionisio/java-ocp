@@ -22,32 +22,58 @@ public class NestedClassPractice {
         //     System.out.println(o.getData());
         // }
 
-        // Inner class in methods
+        // // Inner class in methods
+        // {
+        //     class InnerA {
+        //         int a;
+        //         public void someMethod() {
+        //             a = 7;
+        //             System.out.println("InnerA, someMethod");
+        //             int b = 1;
+        //             // b = 4;  // will not compile because local variable must be final or effectively final
+        //             class InnerB {
+        //                 private void someMethodB() {
+        //                     InnerA.this.a = 10;
+        //                     System.out.println("InnerB someMethodB");
+        //                     System.out.println("InnerA " + InnerA.this.a);      // compiles
+        //                     System.out.println("InnerA " + a);
+        //                     System.out.println("InnerB " + b);
+        //                 }
+        //             }
+        //             InnerB ib = new InnerB();
+        //             ib.someMethodB();
+        //             System.out.println("End someMethod InnerA");
+        //         }
+        //     }
+
+        //     InnerA ia = new InnerA();
+        //     ia.someMethod();
+        // }
+
+
+        // Instantiating InnerClass
         {
-            class InnerA {
-                int a;
-                public void someMethod() {
-                    a = 7;
-                    System.out.println("InnerA, someMethod");
-                    int b = 1;
-                    // b = 4;  // will not compile because local variable must be final or effectively final
-                    class InnerB {
-                        private void someMethodB() {
-                            InnerA.this.a = 10;
-                            System.out.println("InnerB someMethodB");
-                            System.out.println("InnerA " + InnerA.this.a);      // compiles
-                            System.out.println("InnerA " + a);
-                            System.out.println("InnerB " + b);
-                        }
-                    }
-                    InnerB ib = new InnerB();
-                    ib.someMethodB();
-                    System.out.println("End someMethod InnerA");
+            class TestOuter {
+                public void myOuterMethod() {
+                    new TestInner();
+                    this.new TestInner();
+                    new TestOuter().new TestInner();
+
+                    new TestStaticInner();
+                    new TestOuter.TestStaticInner();
+                    // this.TestStaticInner();     // invalid for static nested class
                 }
+
+                public class TestInner {}
+                public static class TestStaticInner {}
             }
 
-            InnerA ia = new InnerA();
-            ia.someMethod();
+            var to = new TestOuter();
+            to.new TestInner();
+            new TestOuter(). new TestInner();
+
+            // to.TestStaticInner();   // Invalid
+            new TestOuter.TestStaticInner();
         }
 
     }

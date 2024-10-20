@@ -80,15 +80,46 @@ public class IOSerializationPractice {
         // }
 
 
-        // PrintWriter
+        // // PrintWriter
+        // {
+        //     try (OutputStream os = new FileOutputStream("./printwriter.txt")) {
+        //         var pw = new PrintWriter(os);
+        //         pw.write("hola");
+        //         pw.println("hola");
+        //         pw.flush();     // this is necessary
+        //     }
+
+        // }
+
+
+        // Deserializaton
         {
-            try (OutputStream os = new FileOutputStream("./printwriter.txt")) {
-                var pw = new PrintWriter(os);
-                pw.write("hola");
-                pw.println("hola");
-                pw.flush();     // this is necessary
+            class Boo {
+                int boo = 10;
+                public Boo(int k) {System.out.println("In Boo k = " + k); boo = k;}
+                // public Boo() {}     // not necesary
             }
 
+            class BooBoo extends Boo {
+                public BooBoo(int k) {super(k); System.out.println("In BooBoo k = " + k);}
+                // public BooBoo() {super(5);} // necesary only in parent of Serializable class for deserialization
+            }
+
+            class Moo extends BooBoo implements Serializable {
+                int moo = 10;
+                public Moo() {super(5); System.out.println("In Moo");}
+            }
+
+            var moo = new Moo();
+            var fos = new FileOutputStream("./moo2.ser");
+            var os = new ObjectOutputStream(fos);
+            os.writeObject(moo);
+            os.close();
+
+            var fis = new FileInputStream("./moo2.ser");
+            var is = new ObjectInputStream(fis);
+            moo = (Moo) is.readObject();
+            is.close();
         }
 
 

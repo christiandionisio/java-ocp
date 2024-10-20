@@ -1,4 +1,5 @@
 import java.time.*;
+import java.time.format.*;
 
 public class DateTimePractice {
 
@@ -27,15 +28,22 @@ public class DateTimePractice {
         //     Period p = Period.ofDays(1);      // only accepts int
         //     System.out.println(p);
         // }
+        // {
+        //     Duration d = Duration.ofDays(1);
+        //     System.out.println(d);
+        //     d = Duration.ofMinutes(0);
+        //     System.out.println(d);
+        //     Period p = Period.ofMonths(0);
+        //     System.out.println(p);
+        //     p = Period.ofYears(0);
+        //     System.out.println(p);
+        // }
+
+
         {
-            Duration d = Duration.ofDays(1);
-            System.out.println(d);
-            d = Duration.ofMinutes(0);
-            System.out.println(d);
-            Period p = Period.ofMonths(0);
-            System.out.println(p);
-            p = Period.ofYears(0);
-            System.out.println(p);
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("eeee");
+            LocalDate d = LocalDate.of(2000, 1, 1);
+            System.out.println(df.format(d));
         }
 
     }

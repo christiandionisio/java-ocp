@@ -200,24 +200,47 @@ public class StreamPractice {
         //     books.stream().collect(Collectors.toMap((b -> b.getTitle()), b -> b.getPrice(), (v1, v2) -> v1 + v2))
         //         .forEach((a,b) -> System.out.println(a + " " + b));
         // }
+        // {
+        //     var tickers = List.of("A", "D", "E", "C", "A");
+        //     var ratio = List.of(1.0, 1.2, 1.5, 1.8, 2.0);
+        //     var map1 = IntStream.range(0, tickers.size())
+        //         .boxed()
+        //         .collect(Collectors.toMap(i -> tickers.get(i),
+        //             i -> 1.0/ratio.get(i), (x,y) -> x+y));
+            
+        //     // var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByKey(String::compareTo))      //compiles
+        //     // var map2 = map1.entrySet().stream().sorted((a, b) -> a.getKey().compareTo(b.getKey()))      // compiles
+        //     // var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByValue())        // compiles
+        //     var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByKey())
+        //         .collect(
+        //             Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, 
+        //                 (x,y) -> x-y, LinkedHashMap::new)
+        //         );
+            
+        //     map2.forEach((var k, var v) -> System.out.printf("%s = %.2f\n", k, v));
+        // }
+
+
+        // // ForEach StringBuilder
+        // {
+        //     List<StringBuilder> messages = Arrays.asList(new StringBuilder(), new StringBuilder());
+        //     messages.stream().forEach(s -> s.append("helloworld"));
+        //     messages.forEach(s -> {
+        //         s.insert(5, ",");
+        //         System.out.println(s);
+        //     });
+        // }
+
+
+        // allMatch
         {
-            var tickers = List.of("A", "D", "E", "C", "A");
-            var ratio = List.of(1.0, 1.2, 1.5, 1.8, 2.0);
-            var map1 = IntStream.range(0, tickers.size())
-                .boxed()
-                .collect(Collectors.toMap(i -> tickers.get(i),
-                    i -> 1.0/ratio.get(i), (x,y) -> x+y));
-            
-            // var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByKey(String::compareTo))      //compiles
-            // var map2 = map1.entrySet().stream().sorted((a, b) -> a.getKey().compareTo(b.getKey()))      // compiles
-            // var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByValue())        // compiles
-            var map2 = map1.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                .collect(
-                    Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, 
-                        (x,y) -> x-y, LinkedHashMap::new)
-                );
-            
-            map2.forEach((var k, var v) -> System.out.printf("%s = %.2f\n", k, v));
+            List<String> ls = Arrays.asList("Tom Cruise", "Tom Hart", "Tom Hanks", "Tom Brady");
+            Predicate<String> p = str -> {
+                System.out.println("Looking...");
+                return str.indexOf("Tom") > -1;
+            };
+            boolean flag = ls.stream().filter(str -> str.length()>8).allMatch(p);
+            System.out.println(flag);
         }
 
     }

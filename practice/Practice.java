@@ -689,13 +689,13 @@ public class Practice {
         //     g.play(); 
         // }
 
-        {
-            Integer i = Integer.parseInt(args[0]);
-            Integer j = i;
-            i--;
-            i++;
-            System.out.println((i==j));
-        }
+        // {
+        //     Integer i = Integer.parseInt(args[0]);
+        //     Integer j = i;
+        //     i--;
+        //     i++;
+        //     System.out.println((i==j));
+        // }
 
     }
 
