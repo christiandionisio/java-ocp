@@ -72,11 +72,23 @@ public class IOSerializationPractice {
         // }
 
 
-        // RandomAccessFile
+        // // RandomAccessFile
+        // {
+        //     var raf = new RandomAccessFile("./test.txt", "rwd");
+        //     raf.writeChars("hello world");
+        //     raf.close();
+        // }
+
+
+        // PrintWriter
         {
-            var raf = new RandomAccessFile("./test.txt", "rwd");
-            raf.writeChars("hello world");
-            raf.close();
+            try (OutputStream os = new FileOutputStream("./printwriter.txt")) {
+                var pw = new PrintWriter(os);
+                pw.write("hola");
+                pw.println("hola");
+                pw.flush();     // this is necessary
+            }
+
         }
 
 

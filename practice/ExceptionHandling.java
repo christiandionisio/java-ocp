@@ -34,17 +34,49 @@ public class ExceptionHandling {
 
         // }
 
-        // throw null
+        // // throw null
+        // {
+        //     try {
+        //         // RuntimeException re;        // not compile
+        //         RuntimeException re = null;
+        //         throw re;       // when this is null then NullpointerException will be thorwn
+        //     } catch(Exception e) {
+        //         System.out.println(e);
+        //     }
+        // }
+
+
+        // // Order of catch        
+        // {
+        //     class E1 extends Exception {}
+        //     class E2 extends E1 {}
+            
+        //     try {
+        //         throw new E2();
+        //     } catch (E1 e) {
+        //         System.out.println("E1");
+        //         // throw new Exception();  // not compile until is declared in throws, finally will execute in any way
+        //     } catch (Exception e) {
+        //         System.out.println("E");
+        //     } finally {
+        //         System.out.println("Finally");
+        //     }
+        // }
+        
+
         {
+            // String s1 = "junk";
+            // String s1 = "" + Float.NEGATIVE_INFINITY;
+            // String s1 = "-Infinity";
+            String s1 = "NaN";
             try {
-                // RuntimeException re;        // not compile
-                RuntimeException re = null;
-                throw re;       // when this is null then NullpointerException will be thorwn
-            } catch(Exception e) {
-                System.out.println(e);
+                System.out.println(Float.parseFloat(s1));
+            } catch (NumberFormatException e ) {
+                System.out.println(0.0f);
+            } catch(IllegalArgumentException e) {
+                System.out.println(Float.NaN);
             }
         }
-        
 
     }
 
