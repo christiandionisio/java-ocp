@@ -65,6 +65,8 @@ public class StringBuilderHandling {
             System.out.println(stringVar.insert(0, arr, 0, 4));
             System.out.println(stringVar.insert(0, "HOLA", 0, 4));
 
+            System.out.println(new StringBuilder("123-456-7890").replace(0,7, "xxx-xxx-").toString());
+
         }
 
 

@@ -42,20 +42,31 @@ public class ComparingSort {
         // }
 
 
-        // FIXME: Immutable lists
-        // List.of and List.copyof are immutable, 
-        // Arrays.asList can only replace elements but cannot add or delete
+        // // FIXME: Immutable lists
+        // // List.of and List.copyof are immutable, 
+        // // Arrays.asList can only replace elements but cannot add or delete
+        // {
+        //     List<Integer> aList = Arrays.asList(40,30,20);
+        //     // List<Integer> aList = List.of(40,30,20);
+        //     List<Integer> bList = List.copyOf(aList);
+
+        //     // bList.sort((Integer::compare));      // UnsupportedOperationException
+        //     // System.out.println(bList);
+
+        //     // aList.sort((Integer::compare));  // same as below
+        //     aList.sort((a, b) -> Integer.compare(a,b));
+        //     System.out.println(aList);
+        // }
+
+
+        // FIXME: Arrays.compare() and Arrays.mismatch()
         {
-            List<Integer> aList = Arrays.asList(40,30,20);
-            // List<Integer> aList = List.of(40,30,20);
-            List<Integer> bList = List.copyOf(aList);
+            int [] ia1 = {0, 1, 4, 5};
+            int [] ia2 = {0, 1, 1, 5, 6};
 
-            // bList.sort((Integer::compare));      // UnsupportedOperationException
-            // System.out.println(bList);
-
-            // aList.sort((Integer::compare));  // same as below
-            aList.sort((a, b) -> Integer.compare(a,b));
-            System.out.println(aList);
+            int x = Arrays.compare(ia1, ia2);
+            int y = Arrays.mismatch(ia1, ia2);
+            System.out.println(x + " " + y);
         }
 
     }

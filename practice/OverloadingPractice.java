@@ -50,28 +50,53 @@ public class OverloadingPractice {
         // }
 
 
+        // {
+        //     class A {
+        //         char var = 'A';
+        //         public void perform_work() {}
+        //     }
+        //     class B extends A {
+        //         char var = 'B';
+        //         public void perform_work() {}
+        //     }
+        //     class C extends B{
+        //         char var = 'C';
+        //         public void perform_work() {
+        //             System.out.println(((A)this).var);
+        //             System.out.println(((B)this).var);
+        //             System.out.println(super.var);
+        //             System.out.println(((C)this).var);
+        //         }
+        //     }
+
+        //     C c = new C();
+        //     c.perform_work();
+        //     System.out.println(((A) c).var);
+        // }
+
+
+        // {
+        //     int i, j, k;
+        //     i = j = k;
+        //     System.out.println(i);
+        // }
+
+
         {
-            class A {
-                char var = 'A';
-                public void perform_work() {}
-            }
-            class B extends A {
-                char var = 'B';
-                public void perform_work() {}
-            }
-            class C extends B{
-                char var = 'C';
-                public void perform_work() {
-                    System.out.println(((A)this).var);
-                    System.out.println(((B)this).var);
-                    System.out.println(super.var);
-                    System.out.println(((C)this).var);
-                }
+            class TestClass {
+                static boolean b;
+                static int[] ia = new int[1];
+                static char ch;
+                static boolean[] ba = new boolean[1];
             }
 
-            C c = new C();
-            c.perform_work();
-            System.out.println(((A) c).var);
+            var x = false;
+            if(TestClass.b) {
+                x = (TestClass.ch == TestClass.ia[TestClass.ch]);
+            }
+            else x = (TestClass.ba[TestClass.ch] = TestClass.b);
+            System.out.println(x + " " + TestClass.ba[TestClass.ch]);
+            System.out.println((int)TestClass.ch);
         }
 
     }

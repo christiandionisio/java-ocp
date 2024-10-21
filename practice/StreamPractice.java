@@ -232,16 +232,44 @@ public class StreamPractice {
         // }
 
 
-        // allMatch
-        {
-            List<String> ls = Arrays.asList("Tom Cruise", "Tom Hart", "Tom Hanks", "Tom Brady");
-            Predicate<String> p = str -> {
-                System.out.println("Looking...");
-                return str.indexOf("Tom") > -1;
-            };
-            boolean flag = ls.stream().filter(str -> str.length()>8).allMatch(p);
-            System.out.println(flag);
-        }
+        // // allMatch
+        // {
+        //     List<String> ls = Arrays.asList("Tom Cruise", "Tom Hart", "Tom Hanks", "Tom Brady");
+        //     Predicate<String> p = str -> {
+        //         System.out.println("Looking...");
+        //         return str.indexOf("Tom") > -1;
+        //     };
+        //     boolean flag = ls.stream().filter(str -> str.length()>8).allMatch(p);
+        //     System.out.println(flag);
+        // }
+
+
+        // {
+        //     List<Integer> names = Arrays.asList(1,2,3);
+        //     names.forEach(x -> x=x+1);
+        //     names.forEach(System.out::println);
+
+        //     List<StringBuilder> namesBuilder = Arrays.asList(new StringBuilder("1"),
+        //         new StringBuilder("2"),new StringBuilder("3"));
+        //     namesBuilder.forEach(x -> x.append("1"));
+        //     namesBuilder.forEach(System.out::println);
+        // }
+
+
+        // // Arrays initializer values
+        // {
+        //     var str = "111";
+        //     boolean[] bA = new boolean[1];
+        //     if(bA[0]) str = "222";
+        //     System.out.println(str);
+
+        //     char [] cA = new char[2];
+        //     int [] iA = new int[2];
+        //     float [] fA = new float[2];
+        //     System.out.println(Arrays.toString(cA));
+        //     System.out.println(Arrays.toString(iA));
+        //     System.out.println(Arrays.toString(fA));
+        // }
 
     }
 }
