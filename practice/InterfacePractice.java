@@ -85,20 +85,43 @@ public class InterfacePractice {
         //     System.out.println(((FooBase)b).STATIC_VALUE);
         // }
 
+        // // STATIC initializer
+        // {
+        //     class Super {
+        //         static {System.out.print("super ");}
+        //     }
+        //     class One {
+        //         static {System.out.print("one ");}
+        //     }
+        //     class Two extends Super {
+        //         static {System.out.print("two ");}
+        //     }
+
+        //     One o = null;   // this will not execute static initializer
+        //     Two t = new Two();
+        // }
+
 
         {
-            class Super {
-                static {System.out.print("super ");}
-            }
-            class One {
-                static {System.out.print("one ");}
-            }
-            class Two extends Super {
-                static {System.out.print("two ");}
+            interface Eatable {
+                int types = 10;
             }
 
-            One o = null;   // this will not execute static initializer
-            Two t = new Two();
+            class Food implements Eatable {
+                public static int types = 20;
+            }
+
+            class Fruit extends Food implements Eatable {
+                void printTypes() {
+                    // super.types = 30;    // valid
+                    ((Food)this).types = 30;    // valid
+                    // ((Eatable)this).types = 30;    // invalid
+                    System.out.println(((Eatable)this).types);
+                }
+            }
+
+            Fruit f = new Fruit();
+            f.printTypes();
         }
 
     }

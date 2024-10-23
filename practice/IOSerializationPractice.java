@@ -92,34 +92,80 @@ public class IOSerializationPractice {
         // }
 
 
-        // Deserializaton
+        // // Deserializaton
+        // {
+        //     class Boo {
+        //         int boo = 10;
+        //         public Boo(int k) {System.out.println("In Boo k = " + k); boo = k;}
+        //         // public Boo() {}     // not necesary
+        //     }
+
+        //     class BooBoo extends Boo {
+        //         public BooBoo(int k) {super(k); System.out.println("In BooBoo k = " + k);}
+        //         // public BooBoo() {super(5);} // necesary only in parent of Serializable class for deserialization
+        //     }
+
+        //     class Moo extends BooBoo implements Serializable {
+        //         int moo = 10;
+        //         public Moo() {super(5); System.out.println("In Moo");}
+        //     }
+
+        //     var moo = new Moo();
+        //     var fos = new FileOutputStream("./moo2.ser");
+        //     var os = new ObjectOutputStream(fos);
+        //     os.writeObject(moo);
+        //     os.close();
+
+        //     var fis = new FileInputStream("./moo2.ser");
+        //     var is = new ObjectInputStream(fis);
+        //     moo = (Moo) is.readObject();
+        //     is.close();
+        // }
+
+
+        // // subpath
+        // {
+        //     Path p1 = Paths.get("/finance/data/reports/daily/pnl.txt");
+        //     System.out.println(p1.subpath(0,2));
+
+        // }
+
+        // // Serialization static and transient
+        // {
+        //     class Boo implements Serializable {
+        //         transient int ti = 10;
+        //         static int si = 20;     // this dont save in serailizaton STATIC
+        //     }
+
+        //     Boo boo = new Boo();
+        //     boo.si++;
+        //     System.out.println(boo.ti + " " + boo.si);
+
+        //     var fos = new FileOutputStream("./boo.ser");
+        //     var os = new ObjectOutputStream(fos);
+        //     os.writeObject(boo);
+        //     os.close();
+
+        //     boo.si += 20; 
+
+        //     var fis = new FileInputStream("./boo.ser");
+        //     var is = new ObjectInputStream(fis);
+        //     boo = (Boo) is.readObject();
+        //     is.close();
+        //     System.out.println(boo.ti + " " + boo.si);
+        // }
+
+
+
         {
-            class Boo {
-                int boo = 10;
-                public Boo(int k) {System.out.println("In Boo k = " + k); boo = k;}
-                // public Boo() {}     // not necesary
-            }
+            System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice/boo.ser"));
+            System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice/boo.ser").getFileName());
+            System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice").getFileName());
+            System.out.println(Path.of("./asds").getFileName());
 
-            class BooBoo extends Boo {
-                public BooBoo(int k) {super(k); System.out.println("In BooBoo k = " + k);}
-                // public BooBoo() {super(5);} // necesary only in parent of Serializable class for deserialization
-            }
 
-            class Moo extends BooBoo implements Serializable {
-                int moo = 10;
-                public Moo() {super(5); System.out.println("In Moo");}
-            }
-
-            var moo = new Moo();
-            var fos = new FileOutputStream("./moo2.ser");
-            var os = new ObjectOutputStream(fos);
-            os.writeObject(moo);
-            os.close();
-
-            var fis = new FileInputStream("./moo2.ser");
-            var is = new ObjectInputStream(fis);
-            moo = (Moo) is.readObject();
-            is.close();
+            System.out.println(Path.of("./boo.ser").toAbsolutePath());
+            System.out.println(Path.of("asdsdsa").toAbsolutePath());
         }
 
 

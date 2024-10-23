@@ -1,5 +1,6 @@
 import java.time.*;
 import java.time.format.*;
+import java.time.temporal.*;
 
 public class DateTimePractice {
 
@@ -40,10 +41,16 @@ public class DateTimePractice {
         // }
 
 
+        // {
+        //     DateTimeFormatter df = DateTimeFormatter.ofPattern("eeee");
+        //     LocalDate d = LocalDate.of(2000, 1, 1);
+        //     System.out.println(df.format(d));
+        // }
+
+
         {
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("eeee");
-            LocalDate d = LocalDate.of(2000, 1, 1);
-            System.out.println(df.format(d));
+            System.out.println(LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY)));
+            System.out.println(TemporalAdjusters.next(DayOfWeek.TUESDAY).adjustInto(LocalDate.now()));
         }
 
     }

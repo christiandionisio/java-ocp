@@ -133,40 +133,72 @@ public class ConcurrencyPractice {
         // }
 
 
-        // synchornized deadlock
+        // // synchornized deadlock
+        // {
+        //     class TestClass {
+        //         static StringBuffer sb1 = new StringBuffer();
+        //         static StringBuffer sb2 = new StringBuffer();
+        //     }
+
+        //     new Thread(
+        //         new Runnable() {
+        //             public void run() {
+        //                 synchronized(TestClass.sb1) {
+        //                     TestClass.sb1.append("X");
+        //                     synchronized(TestClass.sb2) {
+        //                         TestClass.sb2.append("Y");
+        //                     }
+        //                 }
+        //                 System.out.println(TestClass.sb1);
+        //             }
+        //         }
+        //     ).start();
+
+        //     new Thread(
+        //         new Runnable() {
+        //             public void run() {
+        //                 synchronized(TestClass.sb2) {
+        //                     TestClass.sb2.append("Y");
+        //                     synchronized(TestClass.sb1) {
+        //                         TestClass.sb1.append("X");
+        //                     }
+        //                 }
+        //                 System.out.println(TestClass.sb2);
+        //             }
+        //         }
+        //     ).start();
+        // }
         {
-            class TestClass {
-                static StringBuffer sb1 = new StringBuffer();
-                static StringBuffer sb2 = new StringBuffer();
+            class Test extends Thread {
+                static Object obj1 = new Object();
+                static Object obj2 = new Object();
+
+                public void m1() {
+                    synchronized(obj1) {
+                        System.out.print("1 ");
+                        synchronized(obj2) {
+                            System.out.println("2");
+                        }
+                    }
+                }
+
+                public void m2() {
+                    synchronized(obj2) {
+                        System.out.print("2 ");
+                        synchronized(obj1) {
+                            System.out.println("1");
+                        }
+                    }
+                }
+
+                public void run() {
+                    m1();
+                    m2();
+                }
             }
 
-            new Thread(
-                new Runnable() {
-                    public void run() {
-                        synchronized(TestClass.sb1) {
-                            TestClass.sb1.append("X");
-                            synchronized(TestClass.sb2) {
-                                TestClass.sb2.append("Y");
-                            }
-                        }
-                        System.out.println(TestClass.sb1);
-                    }
-                }
-            ).start();
-
-            new Thread(
-                new Runnable() {
-                    public void run() {
-                        synchronized(TestClass.sb2) {
-                            TestClass.sb2.append("Y");
-                            synchronized(TestClass.sb1) {
-                                TestClass.sb1.append("X");
-                            }
-                        }
-                        System.out.println(TestClass.sb2);
-                    }
-                }
-            ).start();
+            new Test().start();
+            new Test().start();
         }
 
     }
