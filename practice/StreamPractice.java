@@ -295,51 +295,53 @@ public class StreamPractice {
         // }
 
 
-        {
-            class Student {
-                public static enum Grade { A, B, C, D, F}
+        // // groupingBy
+        // {
+        //     class Student {
+        //         public static enum Grade { A, B, C, D, F}
 
-                private String name;
-                private Grade grade;
-                public Student(String name, Grade grade) {
-                    this.name = name;
-                    this.grade = grade;
-                }
-                public String toString() {
-                    return name + ":" + grade;
-                }
+        //         private String name;
+        //         private Grade grade;
+        //         public Student(String name, Grade grade) {
+        //             this.name = name;
+        //             this.grade = grade;
+        //         }
+        //         public String toString() {
+        //             return name + ":" + grade;
+        //         }
 
-                public String getName(){
-                    return this.name;
-                }
-                public Grade getGrade() {
-                    return this.grade;
-                }
-            }
+        //         public String getName(){
+        //             return this.name;
+        //         }
+        //         public Grade getGrade() {
+        //             return this.grade;
+        //         }
+        //     }
 
-            List<Student> ls = Arrays.asList(new Student("S1", Student.Grade.A),
-                new Student("S2", Student.Grade.A),
-                new Student("S3", Student.Grade.C));
+        //     List<Student> ls = Arrays.asList(new Student("S1", Student.Grade.A),
+        //         new Student("S2", Student.Grade.A),
+        //         new Student("S3", Student.Grade.C));
 
-            Map<Student.Grade, List<String>> grouping = ls.stream()
-                .collect(Collectors.groupingBy(s -> s.getGrade(), 
-                    Collectors.mapping(s1 -> s1.getName(), Collectors.toList())));
-            System.out.println(grouping);
+        //     Map<Student.Grade, List<String>> grouping = ls.stream()
+        //         .collect(Collectors.groupingBy(s -> s.getGrade(), 
+        //             Collectors.mapping(s1 -> s1.getName(), Collectors.toList())));
+        //     System.out.println(grouping);
 
-            Map<Student.Grade, List<String>> listStringName = ls.stream()
-                .collect(() -> new HashMap<Student.Grade, List<String>>(), 
-                    (map, s) -> {
-                        if(map.containsKey(s.getGrade())) {
-                            List<String> val = map.get(s.getGrade());
-                            val.add(s.getName());
-                            map.put(s.getGrade(), val);
-                        } else {
-                            map.put(s.getGrade(), new ArrayList<String>(Arrays.asList(s.getName()))); 
-                        }
-                    }, 
-                    (map1, map2) -> {});
-            System.out.println(listStringName);
-        }
+        //     Map<Student.Grade, List<String>> listStringName = ls.stream()
+        //         .collect(() -> new HashMap<Student.Grade, List<String>>(), 
+        //             (map, s) -> {
+        //                 if(map.containsKey(s.getGrade())) {
+        //                     List<String> val = map.get(s.getGrade());
+        //                     val.add(s.getName());
+        //                     map.put(s.getGrade(), val);
+        //                 } else {
+        //                     map.put(s.getGrade(), new ArrayList<String>(Arrays.asList(s.getName()))); 
+        //                 }
+        //             }, 
+        //             (map1, map2) -> {});
+        //     System.out.println(listStringName);
+        // }
+
 
     }
 }

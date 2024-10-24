@@ -1,6 +1,8 @@
 import java.util.concurrent.*;
 import java.util.concurrent.locks.*;
+import java.util.concurrent.atomic.*;
 import java.util.*;
+import java.util.stream.*;
 import java.util.Map.Entry;
 
 public class ConcurrencyPractice {
@@ -168,37 +170,52 @@ public class ConcurrencyPractice {
         //         }
         //     ).start();
         // }
+        // {
+        //     class Test extends Thread {
+        //         static Object obj1 = new Object();
+        //         static Object obj2 = new Object();
+
+        //         public void m1() {
+        //             synchronized(obj1) {
+        //                 System.out.print("1 ");
+        //                 synchronized(obj2) {
+        //                     System.out.println("2");
+        //                 }
+        //             }
+        //         }
+
+        //         public void m2() {
+        //             synchronized(obj2) {
+        //                 System.out.print("2 ");
+        //                 synchronized(obj1) {
+        //                     System.out.println("1");
+        //                 }
+        //             }
+        //         }
+
+        //         public void run() {
+        //             m1();
+        //             m2();
+        //         }
+        //     }
+
+        //     new Test().start();
+        //     new Test().start();
+        // }
+
+
         {
-            class Test extends Thread {
-                static Object obj1 = new Object();
-                static Object obj2 = new Object();
+            AtomicInteger ai = new AtomicInteger();
+            
+            Stream<String> stream = Stream.of("old", "king", "cole", "was",
+                "a", "merry", "old", "sould").parallel();
+            stream.filter(e -> {
+                ai.incrementAndGet();
+                System.out.println(ai);
+                return e.contains("o");
+            }).allMatch(x -> x.indexOf("o")>0);
 
-                public void m1() {
-                    synchronized(obj1) {
-                        System.out.print("1 ");
-                        synchronized(obj2) {
-                            System.out.println("2");
-                        }
-                    }
-                }
-
-                public void m2() {
-                    synchronized(obj2) {
-                        System.out.print("2 ");
-                        synchronized(obj1) {
-                            System.out.println("1");
-                        }
-                    }
-                }
-
-                public void run() {
-                    m1();
-                    m2();
-                }
-            }
-
-            new Test().start();
-            new Test().start();
+            System.out.println("AI = " + ai);
         }
 
     }
