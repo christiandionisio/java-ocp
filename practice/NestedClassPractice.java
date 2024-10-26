@@ -51,29 +51,50 @@ public class NestedClassPractice {
         // }
 
 
-        // Instantiating InnerClass
+        // // Instantiating InnerClass
+        // {
+        //     class TestOuter {
+        //         public void myOuterMethod() {
+        //             new TestInner();
+        //             this.new TestInner();
+        //             new TestOuter().new TestInner();
+
+        //             new TestStaticInner();
+        //             new TestOuter.TestStaticInner();
+        //             // this.TestStaticInner();     // invalid for static nested class
+        //         }
+
+        //         public class TestInner {}
+        //         public static class TestStaticInner {}
+        //     }
+
+        //     var to = new TestOuter();
+        //     to.new TestInner();
+        //     new TestOuter(). new TestInner();
+
+        //     // to.TestStaticInner();   // Invalid
+        //     new TestOuter.TestStaticInner();
+        // }
+
+
         {
-            class TestOuter {
-                public void myOuterMethod() {
-                    new TestInner();
-                    this.new TestInner();
-                    new TestOuter().new TestInner();
-
-                    new TestStaticInner();
-                    new TestOuter.TestStaticInner();
-                    // this.TestStaticInner();     // invalid for static nested class
+            class TestClass {
+                static int val = 10;
+                int b = 10;
+                public static int reduce(int val) {
+                    class Inner {
+                        public int reduce(int mval) {
+                            // return mval-val--;
+                            return mval-TestClass.val;
+                        }
+                    }
+                    // val--;
+                    return new Inner().reduce(val);
                 }
-
-                public class TestInner {}
-                public static class TestStaticInner {}
             }
 
-            var to = new TestOuter();
-            to.new TestInner();
-            new TestOuter(). new TestInner();
-
-            // to.TestStaticInner();   // Invalid
-            new TestOuter.TestStaticInner();
+            System.out.println(TestClass.reduce(5));
+            System.out.println(TestClass.val);
         }
 
     }

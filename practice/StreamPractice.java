@@ -343,12 +343,46 @@ public class StreamPractice {
         // }
 
 
+        // {
+        //     List<Double> dList = Arrays.asList(10.0, 12.0);
+        //     DoubleFunction df = x -> x + 10;
+        //     // dList.stream().forEach(df); // not compile
+        //     // dList.stream().forEach(x -> x+10);  // not compile
+        //     dList.stream().forEach(System.out::println);
+        // }
+
+
+        // // parallel stream reduce
+        // {
+        //     List<String> vals = Arrays.asList("a", "b");
+        //     String join = vals.parallelStream()
+        //         .reduce("-", (a, b) -> {
+        //             System.out.println(a + " " + b);
+        //             return a.concat(b);});  // always returns in order
+        //     System.out.println(join);
+        // }
+
+
+        // // takeWhile
+        // {
+        //     IntStream is = IntStream.range(2,6);
+        //     // IntStream is2 = is.dropWhile(x -> x%2 == 0);    // this drops elements while predicate is true
+        //     IntStream is2 = is.takeWhile(x -> x%2 == 0);    // this takes elements while predicate is true
+        //     is2.forEach(System.out::print);
+
+        //     // var i = new Integer[]{1,2,3,4,5};
+        //     // Arrays.stream(i)
+        //     //     .peek(System.out::print)
+        //     //     .map(m->m)
+        //     //     .forEach(System.out::println);
+        // }
+
+
+        // DoubleStream DoubleUnaryOperator
         {
-            List<Double> dList = Arrays.asList(10.0, 12.0);
-            DoubleFunction df = x -> x + 10;
-            // dList.stream().forEach(df); // not compile
-            // dList.stream().forEach(x -> x+10);  // not compile
-            dList.stream().forEach(System.out::println);
+            DoubleStream ds = DoubleStream.of(1.0, 2.0, 3.0);
+            DoubleFunction<DoubleUnaryOperator> doubleF = m -> (n -> m+n);
+            ds.map(doubleF.apply(5.0)).forEach(System.out::println);
         }
 
 

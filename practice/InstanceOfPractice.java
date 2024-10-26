@@ -24,6 +24,13 @@ public class InstanceOfPractice {
             if(!(a instanceof B b3)) ;
             else { b3.a();}
 
+            if(a instanceof B b1) {
+                b1.b();
+                if(b1 instanceof C c1) {
+                    c1.c();
+                }
+            }
+
         }
         
     }
