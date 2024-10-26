@@ -102,26 +102,34 @@ public class InterfacePractice {
         // }
 
 
+        // {
+        //     interface Eatable {
+        //         int types = 10;
+        //     }
+
+        //     class Food implements Eatable {
+        //         public static int types = 20;
+        //     }
+
+        //     class Fruit extends Food implements Eatable {
+        //         void printTypes() {
+        //             // super.types = 30;    // valid
+        //             ((Food)this).types = 30;    // valid
+        //             // ((Eatable)this).types = 30;    // invalid
+        //             System.out.println(((Eatable)this).types);
+        //         }
+        //     }
+
+        //     Fruit f = new Fruit();
+        //     f.printTypes();
+        // }
+
+
         {
-            interface Eatable {
-                int types = 10;
-            }
-
-            class Food implements Eatable {
-                public static int types = 20;
-            }
-
-            class Fruit extends Food implements Eatable {
-                void printTypes() {
-                    // super.types = 30;    // valid
-                    ((Food)this).types = 30;    // valid
-                    // ((Eatable)this).types = 30;    // invalid
-                    System.out.println(((Eatable)this).types);
-                }
-            }
-
-            Fruit f = new Fruit();
-            f.printTypes();
+            abstract class Vehicle {}
+            interface Drivable {}
+            class Car extends Vehicle implements Drivable {}
+            class SUV extends Car implements Drivable{}
         }
 
     }

@@ -156,16 +156,39 @@ public class IOSerializationPractice {
         // }
 
 
+        // // Path
+        // {
+        //     System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice/boo.ser"));
+        //     System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice/boo.ser").getFileName());
+        //     System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice").getFileName());
+        //     System.out.println(Path.of("./asds").getFileName());
+
+
+        //     System.out.println(Path.of("./boo.ser").toAbsolutePath());
+        //     System.out.println(Path.of("asdsdsa").toAbsolutePath());
+        // }
+
+
 
         {
-            System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice/boo.ser"));
-            System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice/boo.ser").getFileName());
-            System.out.println(Path.of("/Users/christiandionisio/Desktop/javaOCP/practice").getFileName());
-            System.out.println(Path.of("./asds").getFileName());
+            class FileCopier {
+                public static void copy(String records1, String records2) throws IOException {
+                    try(InputStream is = new FileInputStream(records1);
+                        OutputStream os = new FileOutputStream(records2);) {
+                        
+                        var buffer = new byte[1024];
+                        var bytesRead = 0;
+                        while((bytesRead = is.read(buffer)) != -1) {
+                            os.write(buffer, 0, bytesRead);
+                        }
+                        
+                    } catch(FileNotFoundException | java.io.InvalidClassException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
-
-            System.out.println(Path.of("./boo.ser").toAbsolutePath());
-            System.out.println(Path.of("asdsdsa").toAbsolutePath());
+            FileCopier.copy("./test1.txt", "./test2.txt");
         }
 
 

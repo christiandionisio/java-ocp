@@ -203,19 +203,28 @@ public class ConcurrencyPractice {
         //     new Test().start();
         // }
 
-
-        {
-            AtomicInteger ai = new AtomicInteger();
+        
+        // // AtomicInteger
+        // {
+        //     AtomicInteger ai = new AtomicInteger();
             
-            Stream<String> stream = Stream.of("old", "king", "cole", "was",
-                "a", "merry", "old", "sould").parallel();
-            stream.filter(e -> {
-                ai.incrementAndGet();
-                System.out.println(ai);
-                return e.contains("o");
-            }).allMatch(x -> x.indexOf("o")>0);
+        //     Stream<String> stream = Stream.of("old", "king", "cole", "was",
+        //         "a", "merry", "old", "sould").parallel();
+        //     stream.filter(e -> {
+        //         ai.incrementAndGet();
+        //         System.out.println(ai);
+        //         return e.contains("o");
+        //     }).allMatch(x -> x.indexOf("o")>0);
 
-            System.out.println("AI = " + ai);
+        //     System.out.println("AI = " + ai);
+        // }
+
+
+        // parallelStream and reduce
+        {
+            List<Integer> lon = List.of(1,2,3,4,5,6,7);
+            System.out.println(lon.parallelStream().reduce(5, Integer::sum, (a, b) -> a + b - 5));
+            System.out.println(lon.stream().reduce(5, Integer::sum));
         }
 
     }

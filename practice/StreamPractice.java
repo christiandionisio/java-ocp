@@ -343,5 +343,14 @@ public class StreamPractice {
         // }
 
 
+        {
+            List<Double> dList = Arrays.asList(10.0, 12.0);
+            DoubleFunction df = x -> x + 10;
+            // dList.stream().forEach(df); // not compile
+            // dList.stream().forEach(x -> x+10);  // not compile
+            dList.stream().forEach(System.out::println);
+        }
+
+
     }
 }

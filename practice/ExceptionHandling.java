@@ -1,6 +1,6 @@
 public class ExceptionHandling {
 
-    public static void main(String ...args) {
+    public static void main(String ...args) throws Exception {
 
         // {
         //     System.out.println(parseFloat("1F"));
@@ -64,18 +64,31 @@ public class ExceptionHandling {
         // }
         
 
+        // {
+        //     // String s1 = "junk";
+        //     // String s1 = "" + Float.NEGATIVE_INFINITY;
+        //     // String s1 = "-Infinity";
+        //     String s1 = "NaN";
+        //     try {
+        //         System.out.println(Float.parseFloat(s1));
+        //     } catch (NumberFormatException e ) {
+        //         System.out.println(0.0f);
+        //     } catch(IllegalArgumentException e) {
+        //         System.out.println(Float.NaN);
+        //     }
+        // }
+
+
+
         {
-            // String s1 = "junk";
-            // String s1 = "" + Float.NEGATIVE_INFINITY;
-            // String s1 = "-Infinity";
-            String s1 = "NaN";
-            try {
-                System.out.println(Float.parseFloat(s1));
-            } catch (NumberFormatException e ) {
-                System.out.println(0.0f);
-            } catch(IllegalArgumentException e) {
-                System.out.println(Float.NaN);
+            class TestClass {
+                public static int m1() throws Exception {
+                    throw new Exception("Some Exception");
+                }
             }
+
+            int [] a = null;
+            int i =  a[5] + TestClass.m1();
         }
 
     }
