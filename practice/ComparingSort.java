@@ -59,14 +59,45 @@ public class ComparingSort {
         // }
 
 
-        // FIXME: Arrays.compare() and Arrays.mismatch()
-        {
-            int [] ia1 = {0, 1, 4, 5};
-            int [] ia2 = {0, 1, 1, 5, 6};
+        // // FIXME: Arrays.compare() and Arrays.mismatch()
+        // {
+        //     int [] ia1 = {0, 1, 4, 5};
+        //     int [] ia2 = {0, 1, 1, 5, 6};
 
-            int x = Arrays.compare(ia1, ia2);
-            int y = Arrays.mismatch(ia1, ia2);
+        //     int x = Arrays.compare(ia1, ia2);
+        //     int y = Arrays.mismatch(ia1, ia2);
+        //     System.out.println(x + " " + y);
+        // }
+
+
+        // {
+        //     class TestClass {
+        //         static String[] sa = {"a", "aaaa", "aaa", "aa"};
+        //         static {
+        //             System.out.println(Arrays.toString(sa)); 
+        //             Arrays.sort(sa); 
+        //             System.out.println(Arrays.toString(sa));
+        //         }
+        //     }
+
+        //     String search = "aaaA";
+        //     if(args.length != 0) search = args[0];
+        //     System.out.println(Arrays.binarySearch(TestClass.sa, search));
+        // }
+
+
+        {
+            var a = new int[]{1,2,3,4,5};
+            var b = new int[]{1,2,3,4,5,3};
+            var c = new int[]{1,2,3,4,5,6};
+
+            int x = Arrays.compare(a,c);
+            int y = Arrays.compare(b,c);
             System.out.println(x + " " + y);
+
+            int u = Arrays.mismatch(a,c);
+            int v = Arrays.mismatch(b,c);
+            System.out.println(u + " " + v);
         }
 
     }

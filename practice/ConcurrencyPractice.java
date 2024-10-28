@@ -220,11 +220,55 @@ public class ConcurrencyPractice {
         // }
 
 
-        // parallelStream and reduce
+        // // parallelStream and reduce
+        // {
+        //     List<Integer> lon = List.of(1,2,3,4,5,6,7);
+        //     System.out.println(lon.parallelStream().reduce(5, Integer::sum, (a, b) -> a + b - 5));
+        //     System.out.println(lon.stream().reduce(5, Integer::sum));
+        // }
+
+
+        // {
+        //     class A extends Thread {
+        //         public void run() {
+        //             System.out.println("Starting loop");
+        //             try {
+        //                 Thread.sleep(10000);
+        //                 System.out.println(getState());
+        //             } catch(Exception e) { e.printStackTrace();}
+        //             System.out.println("Ending loop");
+
+        //         }
+        //     }
+
+        //     A a = new A();
+        //     a.start();
+        //     Thread.sleep(1000);
+        //     a.interrupt();
+        //     System.out.println(a.getState());
+        // }
+
+
         {
-            List<Integer> lon = List.of(1,2,3,4,5,6,7);
-            System.out.println(lon.parallelStream().reduce(5, Integer::sum, (a, b) -> a + b - 5));
-            System.out.println(lon.stream().reduce(5, Integer::sum));
+            class TestClass {
+                static int count = 0;
+            }
+
+            ExecutorService es = Executors.newFixedThreadPool(5);
+            for(int i=0; i<5; i++) {
+                es.submit(() -> {
+                    for(int j=0; j<5000; j++) {
+                        // TestClass.count++;
+                        synchronized(TestClass.class) {
+                            TestClass.count++;
+                        }
+                    }
+                });
+            }
+
+            es.awaitTermination(10, TimeUnit.SECONDS);
+            es.shutdownNow();
+            System.out.println(TestClass.count);
         }
 
     }

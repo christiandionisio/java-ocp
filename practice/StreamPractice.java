@@ -378,11 +378,43 @@ public class StreamPractice {
         // }
 
 
-        // DoubleStream DoubleUnaryOperator
+        // // DoubleStream DoubleUnaryOperator
+        // {
+        //     DoubleStream ds = DoubleStream.of(1.0, 2.0, 3.0);
+        //     DoubleFunction<DoubleUnaryOperator> doubleF = m -> (n -> m+n);
+        //     ds.map(doubleF.apply(5.0)).forEach(System.out::println);
+        // }
+
+
+        // Queue
         {
-            DoubleStream ds = DoubleStream.of(1.0, 2.0, 3.0);
-            DoubleFunction<DoubleUnaryOperator> doubleF = m -> (n -> m+n);
-            ds.map(doubleF.apply(5.0)).forEach(System.out::println);
+            class Person {
+                private String name;
+                public Person(String name) {this.name = name;}
+                public String getName() {return name;}
+                public void setName(String name) {this.name = name;}
+
+                public String toString() {return name;}
+            }
+
+            class Helper {
+                public void helpPeople(Queue people, Queue helped) {
+                    do {
+                        Person p = (Person) people.poll();
+                        System.out.println("Helped : " + p + " ");
+                        helped.offer(p.getName());
+                    } while (!people.isEmpty());
+                }
+            }
+
+            Queue<Person> q = new LinkedList<Person>();
+            q.offer(new Person("Pope"));
+            q.offer(new Person("John"));
+            System.out.println(q);
+
+            Queue<Person> helpedQ = new LinkedList<Person>();
+            Helper h = new Helper();
+            h.helpPeople(q, helpedQ);
         }
 
 

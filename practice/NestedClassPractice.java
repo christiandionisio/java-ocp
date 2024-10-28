@@ -77,25 +77,25 @@ public class NestedClassPractice {
         // }
 
 
-        {
-            class TestClass {
-                static int val = 10;
-                int b = 10;
-                public static int reduce(int val) {
-                    class Inner {
-                        public int reduce(int mval) {
-                            // return mval-val--;
-                            return mval-TestClass.val;
-                        }
-                    }
-                    // val--;
-                    return new Inner().reduce(val);
-                }
-            }
+        // {
+        //     class TestClass {
+        //         static int val = 10;
+        //         int b = 10;
+        //         public static int reduce(int val) {
+        //             class Inner {
+        //                 public int reduce(int mval) {
+        //                     // return mval-val--;
+        //                     return mval-TestClass.val;
+        //                 }
+        //             }
+        //             // val--;
+        //             return new Inner().reduce(val);
+        //         }
+        //     }
 
-            System.out.println(TestClass.reduce(5));
-            System.out.println(TestClass.val);
-        }
+        //     System.out.println(TestClass.reduce(5));
+        //     System.out.println(TestClass.val);
+        // }
 
     }
 

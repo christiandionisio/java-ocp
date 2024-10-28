@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.stream.*;
 import java.nio.*;
 import java.nio.file.*;
 
@@ -170,25 +171,35 @@ public class IOSerializationPractice {
 
 
 
-        {
-            class FileCopier {
-                public static void copy(String records1, String records2) throws IOException {
-                    try(InputStream is = new FileInputStream(records1);
-                        OutputStream os = new FileOutputStream(records2);) {
+        // {
+        //     class FileCopier {
+        //         public static void copy(String records1, String records2) throws IOException {
+        //             try(InputStream is = new FileInputStream(records1);
+        //                 OutputStream os = new FileOutputStream(records2);) {
                         
-                        var buffer = new byte[1024];
-                        var bytesRead = 0;
-                        while((bytesRead = is.read(buffer)) != -1) {
-                            os.write(buffer, 0, bytesRead);
-                        }
+        //                 var buffer = new byte[1024];
+        //                 var bytesRead = 0;
+        //                 while((bytesRead = is.read(buffer)) != -1) {
+        //                     os.write(buffer, 0, bytesRead);
+        //                 }
                         
-                    } catch(FileNotFoundException | java.io.InvalidClassException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        //             } catch(FileNotFoundException | java.io.InvalidClassException e) {
+        //                 e.printStackTrace();
+        //             }
+        //         }
+        //     }
 
-            FileCopier.copy("./test1.txt", "./test2.txt");
+        //     FileCopier.copy("./test1.txt", "./test2.txt");
+        // }
+
+
+        // Files lines and files list
+        {
+            Stream<String> lines = Files.lines(Paths.get("test2.txt"));
+            lines.forEach(System.out::println);
+        }
+        {
+            Files.list(Paths.get("")).forEach(System.out::println);
         }
 
 
